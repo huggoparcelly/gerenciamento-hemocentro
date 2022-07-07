@@ -1,4 +1,4 @@
-module Models.BolsaSangue where
+module Model.BolsaSangue where
   data BolsaSangue  = BolsaSangue {
     id:: Int,
     tipoSangue:: String,

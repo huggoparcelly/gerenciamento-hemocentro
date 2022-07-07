@@ -1,4 +1,4 @@
-module Utils where
+module Util.CrudTxt where
 
   import Data.List.Split
   import System.IO

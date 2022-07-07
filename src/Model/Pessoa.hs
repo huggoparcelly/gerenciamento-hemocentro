@@ -1,4 +1,4 @@
-module Models.Pessoa where
+module Model.Pessoa where
   data Pessoa  = Pessoa {
     cpf:: String,
     nome:: String,

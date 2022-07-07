@@ -1,4 +1,4 @@
-module Models.Doacao where
+module Model.Doacao where
   data Doacao  = Doacao {
     id:: Int,
     doador:: Pessoa,
