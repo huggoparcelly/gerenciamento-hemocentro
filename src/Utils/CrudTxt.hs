@@ -1,4 +1,4 @@
-module Utils.CrudTxt where
+module Utils where
 
   import Data.List.Split
   import System.IO
@@ -6,7 +6,7 @@ module Utils.CrudTxt where
   -- add um conteudo em uma linha de um arquivo txt
 
   addContent :: String -> String -> IO()
-  addContent fileName content = 
+  addContent fileName content =
     appendFile ("database/" ++ fileName ++ ".txt") (content ++ "\n")
 
   -- ler todo conteudo de um txt e returna um array de string separados (splitOn) por linhas ("\n")
