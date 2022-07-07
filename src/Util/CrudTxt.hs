@@ -7,12 +7,12 @@ module Util.CrudTxt where
 
   addContent :: String -> String -> IO()
   addContent fileName content =
-    appendFile ("database/" ++ fileName ++ ".txt") (content ++ "\n")
+    appendFile ("../database/" ++ fileName ++ ".txt") (content ++ "\n")
 
   -- ler todo conteudo de um txt e returna um array de string separados (splitOn) por linhas ("\n")
   readContent :: String -> IO [String]
   readContent fileName = do
-    content <- openFile ("database/" ++ fileName ++ ".txt") ReadMode
+    content <- openFile ("../database/" ++ fileName ++ ".txt") ReadMode
     stringContent <- hGetContents content
     return (splitOn "\n" stringContent)
 
