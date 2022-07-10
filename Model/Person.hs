@@ -1,5 +1,5 @@
-module Model.Pessoa where
-  data Pessoa  = Pessoa {
+module Model.Person where
+  data Person  = Person {
     cpf:: String,
     nome:: String
     -- tel :: String,
