@@ -1,7 +1,5 @@
-module Models.ComprovanteDoacao where
+module Model.ComprovanteDoacao where
   data ComprovanteDoacao  = ComprovanteDoacao {
-    id:: Int,
-    doador:: String,
-    tipoSangue:: String,
+    cpf:: String,
     descricao:: String
   } deriving (Show, Read) 

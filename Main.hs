@@ -6,6 +6,7 @@ import Data.List.Split (splitOn)
 import Util.ManagerTxt
 import Data.Text (takeWhileEnd)
 import Data.Time
+import Service.ComprovanteService
 
 fileNameDoadores :: String
 fileNameDoadores = "Doadores"
@@ -26,8 +27,8 @@ main = do
 
     -- -- BUSCAR DOADOR POR CPF
 
-    -- person <- getByCpf fileName
-    -- print person
+    person <- getByCpf "Doadores"
+    print person
 
     -- -- ATUALIZAR UM DOADOR
 
@@ -51,8 +52,8 @@ main = do
 
     -- BUSCA A DOACAO PELO ID
 
-    doacao <- getDoacaoById fileNameDoacoes
-    print doacao
+    -- doacao <- getDoacaoById fileNameDoacoes
+    -- print doacao
     
     -- -- ATUALIZAR UMA DOACAO
 
@@ -62,3 +63,7 @@ main = do
     -- -- DELETAR UMA DOACAO
 
     -- removeById fileNameDoacoes
+
+    -- comprov <- getComprovanteByCpf "ComprovanteDoacao"
+
+    -- print comprov

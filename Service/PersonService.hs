@@ -2,7 +2,8 @@ module Service.PersonService where
 
   import Model.Person
   import Util.ManagerTxt
-
+  import Util.ManagerId
+  
 
   -- TODO adicionar os outros atributos solicitados para cadastro do doador
   createPerson :: String -> IO()
@@ -19,16 +20,16 @@ module Service.PersonService where
   getAllPersons :: String -> IO [String]
   getAllPersons = readContent
 
-  searchCpf :: IO String
-  searchCpf = do
-    putStr "Cpf buscado:"
-    getLine
+  -- searchCpf :: IO String
+  -- searchCpf = do
+  --   putStr "Cpf buscado:"
+  --   getLine
 
   getByCpf :: String -> IO String
   getByCpf fileName = do
     cpfToFind <- searchCpf
 
-    getPersonByCpf fileName cpfToFind
+    getContentByCpf fileName cpfToFind
 
 
   putByCpf :: String -> IO ()

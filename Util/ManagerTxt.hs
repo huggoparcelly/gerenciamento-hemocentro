@@ -28,20 +28,20 @@ module Util.ManagerTxt where
 
   -- Funcao que retorna uma pessoa buscando pelo seu cpf
   -- Parametros: o nome do arquivo txt onde se quer buscar, cpf buscado
-  getPersonByCpf :: String -> String -> IO String
-  getPersonByCpf filename cpf = do
+  getContentByCpf :: String -> String -> IO String
+  getContentByCpf filename cpf = do
       contentList <- readContent filename
 
-      getPersonByCpfRecursivo contentList cpf
+      getContentByCpfRecursivo contentList cpf
 
   -- Funcao auxiliar na busca pelo cpf, faz uma recursao onde percorre toda a lista de conteudo do txt
   -- Parametros: Lista de conteudo, cpf buscado
-  getPersonByCpfRecursivo :: [String] -> String -> IO String
-  getPersonByCpfRecursivo [] cpf = return ("cpf " ++ cpf ++ " nao encontrado") -- fazer um service e colocar essa verificação lá
-  getPersonByCpfRecursivo (c:cs) cpf =
+  getContentByCpfRecursivo :: [String] -> String -> IO String
+  getContentByCpfRecursivo [] cpf = return ("cpf " ++ cpf ++ " nao encontrado") -- fazer um service e colocar essa verificação lá
+  getContentByCpfRecursivo (c:cs) cpf =
 
       if checkCpfExist cpf c then return c
-      else getPersonByCpfRecursivo cs cpf
+      else getContentByCpfRecursivo cs cpf
 
 
   checkCpfExist :: String -> String -> Bool
@@ -50,7 +50,7 @@ module Util.ManagerTxt where
   updatePersonByCpf :: String -> String -> String -> IO()
   updatePersonByCpf fileName cpf personUpdated = do
 
-    person <- getPersonByCpf fileName cpf
+    person <- getContentByCpf fileName cpf
 
     if person == "cpf " ++ cpf ++ " nao encontrado" then do putStr person
 
@@ -89,18 +89,14 @@ module Util.ManagerTxt where
   deletePersonByCpf fileName cpf = updatePersonByCpf fileName cpf ""
 
 
-  -- Função que busca o ultimo id
-
-
   -- Funcao que retorna uma doacao pelo id
-
   getById :: String -> Int -> IO String
   getById fileName id = do
 
     contentList <- readContent fileName
 
     getByIdRecursivo contentList id
-
+    
 
   getByIdRecursivo :: [String] -> Int -> IO String
   getByIdRecursivo [] id = 
@@ -150,6 +146,7 @@ module Util.ManagerTxt where
   deleteById fileName id = updateById fileName id ""
 
 
+  -- Função que busca o ultimo id
   getLastId :: String -> IO Int
   getLastId fileName = do
     allDoacoes <- readContent fileName
