@@ -9,7 +9,6 @@ module Util.ManagerTxt where
   
   -- Funcao para add um conteudo em um arquivo txt a partir do seu nome
   -- Parametros: nome do arquivo, conteudo
-
   addContent :: String -> String -> IO()
   addContent fileName content = do
     let newContent = content ++ "\n"
