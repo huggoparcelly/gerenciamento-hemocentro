@@ -12,6 +12,7 @@ module Service.PersonService where
     name <- getLine
     putStr "Cpf: "
     cpf <- getLine
+
     let pessoa = Person cpf name
 
     addContent fileName $ show pessoa
@@ -19,11 +20,6 @@ module Service.PersonService where
 
   getAllPersons :: String -> IO [String]
   getAllPersons = readContent
-
-  -- searchCpf :: IO String
-  -- searchCpf = do
-  --   putStr "Cpf buscado:"
-  --   getLine
 
   getByCpf :: String -> IO String
   getByCpf fileName = do
@@ -43,7 +39,7 @@ module Service.PersonService where
     cpf <- getLine
     let newPessoa = Person cpf name
 
-    updatePersonByCpf fileName cpfToFind $ show newPessoa
+    updatePersonByCpf fileName cpf $ show newPessoa
 
 
   deletePerson :: String -> IO ()

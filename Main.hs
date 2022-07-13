@@ -18,8 +18,8 @@ fileNameDoacoes = "Doacoes"
 main :: IO ()
 main = do
 
-    -- -- CRIAR UM NOVO DOADOR
-    -- createPerson fileName
+    -- CRIAR UM NOVO DOADOR
+    -- createPerson fileNameDoadores
 
     -- -- BUSCAR TODOS OS DOADORES
     -- allContent <- getAllPersons fileName
@@ -27,13 +27,13 @@ main = do
 
     -- -- BUSCAR DOADOR POR CPF
 
-    person <- getByCpf "Doadores"
-    print person
+    -- person <- getByCpf "Doadores"
+    -- print person
 
     -- -- ATUALIZAR UM DOADOR
 
-    -- personUpdated <- putByCpf fileName
-    -- print personUpdated
+    personUpdated <- putByCpf fileDoadores
+    print personUpdated
 
     -- -- DELETE UMA PESSOA
 

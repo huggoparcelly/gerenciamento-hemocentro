@@ -1,4 +1,4 @@
-BolsaSangue {id = 1, tipoSangue = "O+", quantidade = 1000}
-BolsaSangue {id = 2, tipoSangue = "O-", quantidade = 2000}
-BolsaSangue {id = 3, tipoSangue = "A+", quantidade = 1500}
-BolsaSangue {id = 4, tipoSangue = "B-", quantidade = 1000}
+tipoSangue = "O+", quantidade = 1000
+tipoSangue = "O-", quantidade = 2000
+tipoSangue = "A+", quantidade = 1500
+tipoSangue = "B-", quantidade = 1000
