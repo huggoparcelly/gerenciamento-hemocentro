@@ -2,14 +2,19 @@ module Service.BancoDeSangueService where
 
     import Model.BolsaSangue
     import Util.ManagerTxt
-
-    --Registra uma nova bolsa no banco de dados, ainda falta implementar a função que gera o ID
+    import Util.ManagerId
+    
+    -- Registra uma nova bolsa no banco de dados, com quantidade zerada
+    -- A medida que vão ocorrendo doações e transferencias de sangue o valor da quantidade é alterado. (put)
     createBolsa:: String -> IO()
     createBolsa fileName = do
         putStr "Tipo sanguíneo: "
         tipo <- getLine
+
+        -- chama a funcao que incrementa o id
+        id <- incrementaId fileName
         
-        let bolsa = BolsaSangue getLastId (fileName) tipo 450
+        let bolsa = BolsaSangue id tipo 0
 
         addContent fileName $ show bolsa
     
@@ -19,18 +24,17 @@ module Service.BancoDeSangueService where
 
     --Retorna uma bolsa em específico do banco de dados
     getBag:: String -> IO String
-    getBag filename = do
-        idToFind <- searchIdBag
-
+    getBag fileName = do
+        -- Chama a funcao de input que busca um id
+        idToFind <- searchId
         getById fileName idToFind
-    
-    searchIdBag:: IO String
-    searchIdBag = do
-        putStr "ID: "
-        getLine
     
     --Deleta uma bolsa especificada pelo ID do banco de dados
     deleteBag:: String -> IO()
-    deleteBag = do
-        idToFind <- searchIdBag
+    deleteBag fileName = do
+        -- Chama a funcao de input que busca um id
+        idToFind <- searchId
         deleteById fileName idToFind
+
+
+    -- TODO fazer o put do banco de sangue para quando houver doação ou transferencia de sangue mudar a quantidade

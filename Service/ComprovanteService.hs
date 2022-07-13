@@ -1,36 +1,35 @@
 module Service.ComprovanteService where
 
     import Model.ComprovanteDoacao
-    import Utils.ManagerTxt
-
+    import Util.ManagerTxt
+    import Util.ManagerId
+    import Service.DoacaoService (getDoacaoById)
+    
     --Registra um novo comprovante no sistema 
-    createComprovante:: String -> IO()
-    createComprovante = do
-        putStr "Nome do doador: "
-        nome <- getLine
-        putStr "CPF do doador: "
-        cpf <- getLine
-        putStr "Data da doação: "
-        dia <- getLine
+    createComprovante:: String -> Int -> IO()
+    createComprovante fileName idDoacao = do
+        -- TODO
+        -- quando acontecer a doação(create doacao) retornar um id
+        -- getDoacaoById - tratar a string para capturar nome, cpf, tipo sanguineo e data de doacao
+        -- preencher o descritivo "Declaramos para os devidos fins e com agradecimentos que o(a) 
+        -- Sr(a) (nome), inscrito(a) no CPF sob o nº (informar), doou sangue voluntariamente ao(à) (Hemocentro), às (horário) do dia (data)."
+        -- criar o comprovante de doacao
 
-        let comprovante = ComprovanteDoacao nome cpf dia 
+        doacao <- getDoacaoById "Doacoes"
 
-        addContent fileName $ show comprovante
+        -- let comprovante = ComprovanteDoacao cpf descricao
+
+        addContent fileName $ show "comprovante"
     
     --Retorna todos os comprovantes registrados no banco de dados
-    getAllComprovantes:: String -> IO()
+    getAllComprovantes :: String -> IO [String]
     getAllComprovantes = readContent
-
-    searchCpf:: IO String
-    searchCpf = do 
-        putStr "Cpf doador: "
-        getLine
     
     getComprovanteByCpf:: String -> IO String
     getComprovanteByCpf fileName = do
         comprovanteToFind <- searchCpf
 
-        getComprovanteByCpf fileName comprovanteToFind
+        getContentByCpf fileName comprovanteToFind
     
 
 

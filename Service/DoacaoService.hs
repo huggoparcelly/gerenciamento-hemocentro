@@ -1,6 +1,7 @@
 module Service.DoacaoService where
 
   import Util.ManagerTxt
+  import Util.ManagerId
   import Model.Doacao
 
   import Data.Time.Clock
@@ -17,14 +18,14 @@ module Service.DoacaoService where
   createDoacao :: String -> IO()
   createDoacao fileName = do
 
+    -- TODO
+    -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
+    -- verificacao para o menu ou service e na criacao passa a person como parâmetro.
     putStr "Cpf do doador: "
     cpf <- getLine
-
-    person <- getPersonByCpf fileDoadores cpf -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
-
-    -- busca o ultimo id e incrementa 1
-    lastId <- getLastId fileName
-    let id = lastId + 1
+    person <- getContentByCpf fileDoadores cpf 
+    -- chama a funcao que incrementa o id
+    id <- incrementaId fileName
     
     putStr "Tipo de sangue: "
     tipo <- getLine
@@ -40,15 +41,11 @@ module Service.DoacaoService where
   getAllDoacoes :: String -> IO [String]
   getAllDoacoes = readContent
 
-  searchId :: IO Int
-  searchId = do
-    putStr "Id buscado: "
-    readLn
-
 
   getDoacaoById :: String -> IO String
   getDoacaoById fileName = do
 
+    -- Chama a funcao de input que busca um id
     idToFind <- searchId
 
     getById fileName idToFind
@@ -64,7 +61,7 @@ module Service.DoacaoService where
 
     putStr "Cpf do doador: "
     cpf <- getLine
-    person <- getPersonByCpf fileDoadores cpf -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
+    person <- getContentByCpf fileDoadores cpf -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
 
     putStr "Tipo de sangue: "
     tipo <- getLine
