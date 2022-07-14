@@ -4,7 +4,7 @@ module Service.PersonService where
   import Util.ManagerTxt
   import Util.ManagerId
   
-
+  
   -- TODO adicionar os outros atributos solicitados para cadastro do doador
   createPerson :: String -> IO()
   createPerson fileName = do
@@ -17,8 +17,11 @@ module Service.PersonService where
     addContent fileName $ show pessoa
 
 
-  getAllPersons :: String -> IO [String]
-  getAllPersons = readContent
+  getAllDoadores :: String -> IO [String]
+  getAllDoadores fileDoadores = readContent
+
+  getAllReceptores :: String -> IO [String]
+  getAllReceptores fileReceptores = readContent
 
   -- searchCpf :: IO String
   -- searchCpf = do
