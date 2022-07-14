@@ -22,7 +22,7 @@ main = do
     -- createPerson fileNameDoadores
 
     -- -- BUSCAR TODOS OS DOADORES
-    -- allContent <- getAllPeople fileName
+    -- allContent <- getAllPersons fileName
     -- print allContent
 
     -- -- BUSCAR DOADOR POR CPF
@@ -32,8 +32,8 @@ main = do
 
     -- -- ATUALIZAR UM DOADOR
 
-    personUpdated <- putByCpf fileDoadores
-    print personUpdated
+    -- personUpdated <- putByCpf fileDoadores
+    -- print personUpdated
 
     -- -- DELETE UMA PESSOA
 
