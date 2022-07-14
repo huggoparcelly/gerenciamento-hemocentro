@@ -1,13 +1,11 @@
 module Menu where
 
     import Service.DoacaoService
-    import Service.DoadorService
     import Service.PersonService
     import Util.ManagerTxt
     import Model.BolsaSangue
     import Model.ComprovanteDoacao
     import Model.Doacao
-    import Model.Doador
     import Model.Person
 
     menuPrinciapal :: IO()
@@ -33,17 +31,25 @@ module Menu where
         putStrLn "\n1 - Cadastrar novo Doador"
         putStrLn "\n2 - Cadastrar novo Receptor" 
         putStrLn "\n3 - Cadastrar nova Doacao"
+        putStrLn "\n4 - Cadastrar nova Doacao Direcionada"
         opcao <- getLine
         putStr "\n"
         
         | opcao == "1" = do
-            doador <- createDoador 
+            doador <- createPerson
+            let doador = Person cpf name
+            addContent fileDoador $ show doador 
             
         | opcao == "2" = do
-            receptor <- createReceptor
+            receptor <- createPerson
+            let receptor = Person cpf name
+            addContent fileReceptor $ show receptor 
 
         | opcao == "3" = do
             doacao <- createDoacao
+
+        | opcao == "4" = do
+            doacao <- createDoacaoDirecionada
 
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
