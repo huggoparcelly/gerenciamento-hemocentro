@@ -8,7 +8,8 @@ module Service.DoacaoService where
   import Data.Time.Calendar
   import qualified Data.Functor
   import Data.List.Split
-
+  import Util.StringManager (getByContent, deleteByContent)
+  
   today :: IO Day   -- :: (yyyy-mm-dd)
   today = utctDay <$> getCurrentTime
 
@@ -23,7 +24,7 @@ module Service.DoacaoService where
     -- verificacao para o menu ou service e na criacao passa a person como parâmetro.
     putStr "Cpf do doador: "
     cpf <- getLine
-    person <- getContentByCpf fileDoadores cpf 
+    person <- getByContent fileDoadores cpf 
     -- chama a funcao que incrementa o id
     id <- incrementaId fileName
     
@@ -41,12 +42,14 @@ module Service.DoacaoService where
   createDoacaoDirecionada fileName = do
     putStr "Cpf do receptor: "
     cpf <- getLine
-    person <- getContentByCpf fileReceptores cpf 
-    if(cpf <- checkCpfExist)                            --verifica se o doador existe
+    person <- getByContent fileReceptores cpf 
+
+    if checkIfExist cpf then do                    --verifica se o receptor existe
       putStr "Cpf do doador: "
-      cpf <- getLine
-      person <- getContentByCpf fileDoadores cpf 
-      if(cpf <- checkCpfExist)                         --verifica se o receptor existe
+      cpfDoador <- getLine
+      person <- getByContent fileDoadores cpfDoador
+      
+      if checkIfExist cpfDoador then do                    --verifica se o receptor existe
         id <- incrementaId fileName
     
         putStr "Tipo de sangue: "
@@ -58,9 +61,9 @@ module Service.DoacaoService where
         let pessoa = Doacao id person tipo qnt dateNow
 
         addContent fileName $ show pessoa
-      else                                             --se receptor nao existir, a doaçao acontece de forma normal
+      else do                                             --se receptor nao existir, a doaçao acontece de forma normal
         cpf <- createDoacao
-    else                                               --se o doador nao existir, ele é redirecionado para o cadastro
+    else do                                               --se o doador nao existir, ele é redirecionado para o cadastro
       cpf <- createPerson
       
 
@@ -74,7 +77,7 @@ module Service.DoacaoService where
     -- Chama a funcao de input que busca um id
     idToFind <- searchId
 
-    getById fileName idToFind
+    getByContent fileName idToFind
 
 
   putById :: String -> IO ()
@@ -87,21 +90,22 @@ module Service.DoacaoService where
 
     putStr "Cpf do doador: "
     cpf <- getLine
-    person <- getContentByCpf fileDoadores cpf -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
+    person <- getByContent fileDoadores cpf -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
 
     putStr "Tipo de sangue: "
     tipo <- getLine
-    putStr "Quantidade: "
-    qnt <- readLn
+    -- putStr "Quantidade: "
+    -- qnt <- readLn
 
     let date = getDate doacao -- captura a data
 
-    let doacaoUpdated = Doacao id person tipo qnt date
+    -- let doacaoUpdated = Doacao id person tipo qnt date
+    let doacaoUpdated = Doacao id person
 
     updateById fileName id $ show doacaoUpdated
 
 
-  removeById :: String -> IO ()
-  removeById fileName = do
+  removeDoacaoById :: String -> IO ()
+  removeDoacaoById fileName = do
     id <- searchId
-    deleteById fileName id
+    deleteByContent fileName id
