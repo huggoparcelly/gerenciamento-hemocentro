@@ -37,6 +37,32 @@ module Service.DoacaoService where
 
     addContent fileName $ show pessoa
 
+  createDoacaoDirecionada :: String -> IO()
+  createDoacaoDirecionada fileName = do
+    putStr "Cpf do receptor: "
+    cpf <- getLine
+    person <- getContentByCpf fileReceptores cpf 
+    if(cpf <- checkCpfExist)                            --verifica se o doador existe
+      putStr "Cpf do doador: "
+      cpf <- getLine
+      person <- getContentByCpf fileDoadores cpf 
+      if(cpf <- checkCpfExist)                         --verifica se o receptor existe
+        id <- incrementaId fileName
+    
+        putStr "Tipo de sangue: "
+        tipo <- getLine
+        putStr "Quantidade: "
+        qnt <- readLn
+        dateNow <- today
+
+        let pessoa = Doacao id person tipo qnt dateNow
+
+        addContent fileName $ show pessoa
+      else                                             --se receptor nao existir, a doaçao acontece de forma normal
+        cpf <- createDoacao
+    else                                               --se o doador nao existir, ele é redirecionado para o cadastro
+      cpf <- createPerson
+      
 
   getAllDoacoes :: String -> IO [String]
   getAllDoacoes = readContent

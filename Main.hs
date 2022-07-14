@@ -22,7 +22,7 @@ main = do
     -- createPerson fileNameDoadores
 
     -- -- BUSCAR TODOS OS DOADORES
-    -- allContent <- getAllPersons fileName
+    -- allContent <- getAllPeople fileName
     -- print allContent
 
     -- -- BUSCAR DOADOR POR CPF
