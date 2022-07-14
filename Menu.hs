@@ -1,13 +1,11 @@
 module Menu where
 
     import Service.DoacaoService
-    import Service.DoadorService
     import Service.PersonService
     import Util.ManagerTxt
     import Model.BolsaSangue
     import Model.ComprovanteDoacao
     import Model.Doacao
-    import Model.Doador
     import Model.Person
 
     menuPrinciapal :: IO()
@@ -35,23 +33,35 @@ module Menu where
         putStrLn "\n1 - Cadastrar novo Doador"
         putStrLn "\n2 - Cadastrar novo Receptor" 
         putStrLn "\n3 - Cadastrar nova Doacao"
-        putStrLn "\n4 - Cadastrar nova Doacao de Medula"
+        putStrLn "\n4 - Cadastrar nova Doacao Direcionada"
+        putStrLn "\n5 - Cadastrar nova Doacao de Medula"
+        putStrLn "\n6 - Voltar pro Menu Principal"
 
         opcao <- getLine
         putStr "\n"
         
         | opcao == "1" = do
-            doador <- createDoador 
+            doador <- createPerson
+            let doador = Person cpf name
+            addContent fileDoador $ show doador 
             
         | opcao == "2" = do
-            receptor <- createReceptor
+            receptor <- createPerson
+            let receptor = Person cpf name
+            addContent fileReceptor $ show receptor 
 
         | opcao == "3" = do
             doacao <- createDoacao
 
         | opcao == "4" = do
-            doacao <- createDoacaoMedula
+            doacao <- createDoacaoDirecionada
 
+        | opcao == "5" = do
+            doacao <- createDoacao
+
+        | opcao == "6" = do
+            menuPrincipal
+        
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
             menuCadastrar
@@ -60,7 +70,7 @@ module Menu where
     menuEditar = do
         putStrLn "\n1 - Editar Doador"
         putStrLn "\n2 - Editar Receptor" 
-        putStrLn "\n3 - Editar Doacao"    -- verificar se faz sentido editar uma Doacao
+        putStrLn "\n3 - Voltar pro Menu Principal"
         opcao <- getLine
         putStr "\n"
 
@@ -71,7 +81,7 @@ module Menu where
             cpf <- putByCpf
 
         | opcao == "3" = do
-            id <- putById
+            menuPrincipal
 
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
@@ -83,6 +93,7 @@ module Menu where
         putStrLn "\n2 - Buscar Receptor" 
         putStrLn "\n3 - Buscar Doacao"
         putStrLn "\n4 - Buscar Doacao de Medula"
+        putStrLn "\n5 - Voltar pro Menu Principal"
         opcao <- getLine
         putStr "\n"
 
@@ -98,6 +109,9 @@ module Menu where
         | opcao == "4" = do
             id <- getById
 
+        | opcao == "5" = do
+            menuPrincipal
+
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
             menuBuscar
@@ -106,7 +120,7 @@ module Menu where
     menuRemover = do
         putStrLn "\n1 - Remover Doador"
         putStrLn "\n2 - Remover Receptor" 
-        putStrLn "\n3 - Remover Doacao"  -- verificar se realmente podemos remover uma Doacao - regras de negocio
+        putStrLn "\n3 - Voltar pro Menu Principal"
         opcao <- getLine
         putStr "\n"
 
@@ -117,7 +131,7 @@ module Menu where
             cpf <- deletePerson
 
         | opcao == "3" = do
-            id <- deleteById
+            menuPrincipal
 
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
@@ -128,7 +142,8 @@ module Menu where
         putStrLn "\n1 - Listar Doadores"
         putStrLn "\n2 - Listar Receptores" 
         putStrLn "\n3 - Listar Doacoes"
-        putStrLn "\n4 - Buscar Doacoes de Medula"
+        putStrLn "\n4 - Listar Doacoes de Medula"
+        putStrLn "\n5 - Voltar pro Menu Principal"
         opcao <- getLine
         putStr "\n"
 
@@ -144,9 +159,12 @@ module Menu where
         | opcao == "4" = do
             getAllDoacoesMedula
 
+        | opcao == "5" = do
+            menuPrincipal
+
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
-            menuBuscar
+            menuListar
 
 
 
