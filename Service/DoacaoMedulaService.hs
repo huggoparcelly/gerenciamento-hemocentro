@@ -23,3 +23,6 @@
 
   getAllDoacoesMedula :: String -> IO [String]
   getAllDoacoesMedula fileDoacoesMedula = readContent fileDoacoesMedula
+
+  getAllComprovanteDoacoesMedula :: String -> IO [String]
+  getAllComprovanteDoacoesMedula fileDoacoesMedula = readContent fileDoacoesMedula

@@ -143,7 +143,9 @@ module Menu where
         putStrLn "\n2 - Listar Receptores" 
         putStrLn "\n3 - Listar Doacoes"
         putStrLn "\n4 - Listar Doacoes de Medula"
-        putStrLn "\n5 - Voltar pro Menu Principal"
+        putStrLn "\n5 - Listar Comprovante de Doacoes"
+        putStrLn "\n6 - Listar Comprovante de Doacoes de Medula"
+        putStrLn "\n7 - Voltar pro Menu Principal"
         opcao <- getLine
         putStr "\n"
 
@@ -160,6 +162,12 @@ module Menu where
             getAllDoacoesMedula
 
         | opcao == "5" = do
+            getAllComprovanteDoacoes
+
+        | opcao == "6" = do
+            getAllComprovanteDoacoesMedula     
+
+        | opcao == "7" = do
             menuPrincipal
 
         | otherwise = do

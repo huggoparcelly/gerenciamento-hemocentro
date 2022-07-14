@@ -82,6 +82,9 @@ module Service.DoacaoService where
   getAllDoacoes :: String -> IO [String]
   getAllDoacoes fileDoacoes = readContent fileDoacoes
 
+  getAllComprovanteDoacoes :: String -> IO [String]
+  getAllComprovanteDoacoes fileDoacoes = readContent fileDoacoes
+
   getDoacaoById :: String -> IO String
   getDoacaoById fileName = do
 
