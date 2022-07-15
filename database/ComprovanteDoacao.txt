@@ -1,0 +1,1 @@
+ComprovanteDoacao {cpf = "123123", descricao = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o n\186: 123123 , doou sangue/medula voluntariamente ao(\224) Hemocentro, na data: 2022-07-15."}

@@ -140,7 +140,7 @@ menuBuscar opcao
  putStr resp
 
  | opcao == "3" = do
- resp <- getDoacaoById "Doacao"
+ resp <- getDoacaoById "Doacoes"
  putStr resp
 
  | opcao == "4" = do
