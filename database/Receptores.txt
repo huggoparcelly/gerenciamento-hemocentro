@@ -1,1 +1,0 @@
-Person {cpf = "456", nome = "Jose", tel = "34553", endereco = "local", tipoSangue = "o-"}

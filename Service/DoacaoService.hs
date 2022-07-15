@@ -90,6 +90,8 @@ module Service.DoacaoService where
 
         let doacao = Doacao id doador tipo qnt dateNow
 
+        createComprovante "ComprovanteDoacao" cpf dateNow
+
         addContent fileName $ show doacao
       else do                                             --se receptor nao existir, a doaçao acontece de forma normal
         putStrLn "Vamos se cadastrar para poder ajudar mais pessoas?"
