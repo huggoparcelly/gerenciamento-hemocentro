@@ -24,7 +24,6 @@ module Service.DoacaoService where
   fileNameReceptores = "Receptores"
 
 
-  -- qd faz uma recepcao decrementa em bolsasangue txt
   createDoacao :: String -> IO()
   createDoacao fileName = do
     putStr "CPF do doador: "
