@@ -2,8 +2,8 @@ module Service.PersonService where
 
   import Model.Person
   import Util.ManagerTxt
-  import Util.ManagerId
-  import Util.StringManager (deleteByContent)
+  import Util.IdManager
+  import Util.StringManager
   
   
   -- TODO adicionar os outros atributos solicitados para cadastro do doador
@@ -17,6 +17,7 @@ module Service.PersonService where
     let pessoa = Person cpf name
 
     addContent fileName $ show pessoa
+    putStrLn "Usuário cadastrado com sucesso!"
 
 
   getAllPeople :: String -> IO [String]
@@ -25,7 +26,6 @@ module Service.PersonService where
   getByCpf :: String -> IO String
   getByCpf fileName = do
     cpfToFind <- searchCpf
-
     getByContent fileName cpfToFind
 
   putByCpf :: String -> IO ()
@@ -39,7 +39,8 @@ module Service.PersonService where
     cpf <- getLine
     let newPessoa = Person cpf name
 
-    updatePersonByCpf fileName cpf $ show newPessoa
+    updateByContent fileName cpf $ show newPessoa
+    putStrLn "Usuário atualizado com sucesso."
 
   deletePerson :: String -> IO ()
   deletePerson fileName = do

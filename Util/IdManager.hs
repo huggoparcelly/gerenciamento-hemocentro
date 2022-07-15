@@ -6,10 +6,10 @@ module Util.IdManager where
   import Util.ManagerTxt
 
   -- Input de entrada para buscar um id
-  searchId :: IO Int
+  searchId :: IO String
   searchId = do
     putStr "Id buscado: "
-    readLn
+    getLine
 
   -- busca o ultimo id e incrementa 1
   incrementaId :: String -> IO String
@@ -26,15 +26,17 @@ module Util.IdManager where
     allDoacoes <- readContent fileName
 
     let lastElement = last allDoacoes -- captura o ultimo elemento do array
-
     removeCharactersToId lastElement
 
 
   removeCharactersToId :: Monad m => String -> m Int
   removeCharactersToId element = do
-    let dropElements = dropWhile (/= '=') element -- dropa os caracteres até o = ("= ID, ...")
-    let takeElement = takeWhile (/= ',') dropElements -- retorna os caracteres até a , ("= ID")
-    let getId = words "= "  -- faz um split do "= ID" (["", "ID"])
-    let idStr = last getId
+    let drops = dropWhile (/= '=') element
+    let drops2 = takeWhile (/= ',') drops
+    let getW = words drops2
+    let lastW = last getW
+    let drops3 = dropWhile (== '\"') lastW
+    let drops4 = takeWhile (/= '\"') drops3
+    return (read drops4 :: Int)
 
-    return (read idStr :: Int)
+  

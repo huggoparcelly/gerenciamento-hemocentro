@@ -1,0 +1,2 @@
+Person {cpf = "987", nome = "Mariane"}
+Person {cpf = "543", nome = "Cris"}

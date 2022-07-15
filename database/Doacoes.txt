@@ -1,2 +1,8 @@
 Doacao {id = "23", doador = "Person {cpf = \"12312312311\", nome = \"Huggo\"}", tipoSangue = "A-", quantidade = 300, date = 2022-07-12}
-Doacao {id = "10", doador = "Mari"}
+Doacao {id = "30", doador = "Person {cpf = \"12345678911\", nome = \"Mari\"}", tipoSangue = "AB+", quantidade = 5, date = 2022-07-12}
+Doacao {id = "31", doador = "Person {cpf = \"12345\", nome = \"Mari\"}", tipoSangue = "AB+", quantidade = 10, date = 2022-07-15}
+Doacao {id = "32", doador = "Person {cpf = \"12345\", nome = \"Mari\"}", tipoSangue = "B+", quantidade = 3, date = 2022-07-15}
+Doacao {id = "33", doador = "Person {cpf = \"12312312311\", nome = \"Huggo\"}", tipoSangue = "B-", quantidade = 8, date = 2022-07-15}
+Doacao {id = "34", doador = "Person {cpf = \"12345\", nome = \"Mari\"}", tipoSangue = "AB+", quantidade = 4, date = 2022-07-15}
+Doacao {id = "35", doador = "Person {cpf = \"12345\", nome = \"Mari\"}", tipoSangue = "AB+", quantidade = 3, date = 2022-07-15}
+Doacao {id = "36", doador = "Person {cpf = \"12345\", nome = \"Mari\"}", tipoSangue = "AB+", quantidade = 3, date = 2022-07-15}

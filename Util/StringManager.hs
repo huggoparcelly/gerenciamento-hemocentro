@@ -6,7 +6,7 @@ module Util.StringManager where
   import Prelude as P
   import Data.Time
   import Util.ManagerTxt
-
+  
 
   -- buscar o cpf(id) do doador
   searchCpf:: IO String
@@ -31,12 +31,13 @@ module Util.StringManager where
 
   checkIfExist :: String -> String -> Bool
   checkIfExist str content
-    | "id" `isInfixOf` content =
+    | "id =" `isInfixOf` content =
       ("id = " ++ "\"" ++ str ++ "\"") `isInfixOf` content
-    | "cpf" `isInfixOf` content =
+    | "cpf =" `isInfixOf` content =
       ("cpf = " ++ "\"" ++ str ++ "\"") `isInfixOf` content
-    | "tipoSangue" `isInfixOf` content =
+    | "tipoSangue =" `isInfixOf` content =
       ("tipoSangue = " ++ "\"" ++ str ++ "\"") `isInfixOf` content
+    | otherwise = False
 
 
   updateByContent :: String -> String -> String -> IO()
