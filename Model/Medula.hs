@@ -1,12 +1,8 @@
-module Model.Doacao where
+module Model.Medula where
   import Data.Time
 
-  data Doacao  = Doacao {
+  data Medula  = Medula {
     id :: String,
     doador :: String,
-    tipoSangue :: String,
-    quantidade :: Int,
     date :: Day -- :: (yyyy-mm-dd)
   } deriving (Show, Read)
-
-
