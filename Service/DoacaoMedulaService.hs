@@ -15,14 +15,15 @@
     cpf <- getLine
     person <- getByContent fileDoadores cpf 
     id <- incrementaId fileName  -- chama a funcao que incrementa o id
-    putStr "Nome: "
+    
+
     dateNow <- today
 
-    let pessoa = Doacao id person dateNow
-    addContent fileDoacoesMedula $ show pessoa
+    let doacao = Doacao id person dateNow
+    addContent fileDoacoesMedula $ show doacao
 
   getAllDoacoesMedula :: String -> IO [String]
-  getAllDoacoesMedula fileDoacoesMedula = readContent fileDoacoesMedula
+  getAllDoacoesMedula  = readContent 
 
   getAllComprovanteDoacoesMedula :: String -> IO [String]
-  getAllComprovanteDoacoesMedula fileDoacoesMedula = readContent fileDoacoesMedula
+  getAllComprovanteDoacoesMedula  = readContent 

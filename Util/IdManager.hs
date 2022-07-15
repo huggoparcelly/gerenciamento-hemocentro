@@ -9,7 +9,7 @@ module Util.IdManager where
   searchId :: IO Int
   searchId = do
     putStr "Id buscado: "
-    readLn
+    getLine
 
   -- busca o ultimo id e incrementa 1
   incrementaId :: String -> IO String

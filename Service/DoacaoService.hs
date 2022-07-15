@@ -33,9 +33,8 @@ module Service.DoacaoService where
     qnt <- readLn
     dateNow <- today
 
-    let pessoa = Doacao id person tipo qnt dateNow
-
-    addContent fileName $ show pessoa
+    let doacao = Doacao id person tipo qnt dateNow
+    addContent fileName $ show doacao
 
   createDoacaoDirecionada :: String -> IO()
   createDoacaoDirecionada fileName = do
@@ -66,19 +65,6 @@ module Service.DoacaoService where
       cpf <- createPerson
       
 
-    -- TODO
-    -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
-    -- verificacao para o menu ou service e na criacao passa a person como parâmetro.
-    putStr "Cpf do doador: "
-    cpf <- getLine
-    person <- getContentByCpf fileDoadores cpf 
-    -- chama a funcao que incrementa o id
-    id <- incrementaId fileName
-    dateNow <- today
-    let pessoa = Doacao id person dateNow
-    addContent fileName $ show pessoa
-
-
   getAllDoacoes :: String -> IO [String]
   getAllDoacoes fileDoacoes = readContent fileDoacoes
 
@@ -87,38 +73,8 @@ module Service.DoacaoService where
 
   getDoacaoById :: String -> IO String
   getDoacaoById fileName = do
-
-    -- Chama a funcao de input que busca um id
     idToFind <- searchId
-
     getByContent fileName idToFind
 
 
-  putById :: String -> IO ()
-  putById fileName = do
-
-    doacao <- getDoacaoById fileName
-
-    -- capturar o id
-    id <- removeCharactersToId doacao
-
-    putStr "Cpf do doador: "
-    cpf <- getLine
-    person <- getByContent fileDoadores cpf -- verificacao se o doador nao existir ser redirecionado para o cadastro (menu)
-
-    putStr "Tipo de sangue: "
-    tipo <- getLine
-    -- putStr "Quantidade: "
-    -- qnt <- readLn
-
-    let date = getDate doacao -- captura a data
-
-    -- let doacaoUpdated = Doacao id person tipo qnt date
-    let doacaoUpdated = Doacao id person
-
-    updateById fileName id $ show doacaoUpdated
-
-  removeDoacaoById :: String -> IO ()
-  removeDoacaoById fileName = do
-    id <- searchId
-    deleteByContent fileName id
+  createComprovante ComprovanteDoacao.txt getLastId (ComprovanteDoacao.txt) cpf dateNow 

@@ -8,7 +8,7 @@ module Menu where
     import Model.Doacao
     import Model.Person
 
-    menuPrincipal :: IO()
+menuPrincipal :: IO()
     menuPrincipal = do
         putStrLn "\nBem vindo Gerenciamento de Hemocentro"
         putStrLn "\nPara cadastrar, digite 1;"
@@ -17,22 +17,25 @@ module Menu where
         putStrLn "\nPara remover, digite 4;"
         putStrLn "\nPara listar, digite 5;"
 
+        opcao <- getLine
+        putStr "\n"
+        opcaoMenuPrincipal opcao
 
 
     opcaoMenuPrincipal :: String -> IO()
     opcaoMenuPrincipal opcao
-        | opcao == "1" = menuCadastrar
-        | opcao == "2" = menuEditar
-        | opcao == "3" = menuBuscar
-        | opcao == "4" = menuRemover
-        | opcao == "5" = menuListar
-        | opcao == "6" = sair
+        | opcao == "1" = menuInputCadastro
+        | opcao == "2" = menuInputEditar
+        -- | opcao == "3" = menuInputBuscar
+        -- | opcao == "4" = menuInputRemover
+        -- | opcao == "5" = menuInputListar
+        -- | opcao == "6" = sair
         | otherwise = do
-            putStrLn "Insira um valor válido!\n"
-            menuPrincipal
+                putStrLn "Insira um valor válido!\n"
+                menuPrincipal
 
-    menuCadastrar :: String -> IO()
-    menuCadastrar = do
+    menuInputCadastro :: IO ()
+    menuInputCadastro = do
         putStrLn "\n1 - Cadastrar novo Doador"
         putStrLn "\n2 - Cadastrar novo Receptor" 
         putStrLn "\n3 - Cadastrar nova Doacao"
@@ -42,53 +45,65 @@ module Menu where
 
         opcao <- getLine
         putStr "\n"
-        
-        | opcao == "1" = do
-            doador <- createPerson
-            let doador = Person cpf name
-            addContent fileDoador $ show doador 
-            
+        menuCadastrar opcao
+
+
+    menuCadastrar :: String -> IO()
+    menuCadastrar opcao
+
+        | opcao == "1" =
+                createPerson "Doadores"
+
         | opcao == "2" = do
-            receptor <- createPerson
-            let receptor = Person cpf name
-            addContent fileReceptor $ show receptor 
+                createPerson "Receptores"
 
         | opcao == "3" = do
-            doacao <- createDoacao
+                createDoacao "Doacoes"
 
         | opcao == "4" = do
-            doacao <- createDoacaoDirecionada
+                createDoacaoDirecionada "Doacoes"
 
         | opcao == "5" = do
-            doacao <- createDoacao
+                createDoacaoMedula "DoacoesMedula"
 
         | opcao == "6" = do
-            menuPrincipal
-        
-        | otherwise = do
-            putStrLn "Insira um valor válido!\n"
-            menuCadastrar
+                menuPrincipal
 
-    menuEditar:: String -> IO()
-    menuEditar = do
+        | otherwise = do
+                putStrLn "Insira um valor válido!\n"
+                menuInputCadastro
+
+    
+    menuInputEditar :: IO ()
+    menuInputEditar = do
         putStrLn "\n1 - Editar Doador"
         putStrLn "\n2 - Editar Receptor" 
         putStrLn "\n3 - Voltar pro Menu Principal"
+
         opcao <- getLine
         putStr "\n"
+        menuEditar opcao    
+    
+    
+    menuEditar:: String -> IO()
+    menuEditar opcao
 
         | opcao == "1" = do
-            cpf <- putByCpf 
+            putByCpf "Doadores"
             
         | opcao == "2" = do
-            cpf <- putByCpf
+            putByCpf "Receptores"
 
         | opcao == "3" = do
             menuPrincipal
 
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
-            menuEditar
+            menuInputEditar
+
+
+
+
 
     menuBuscar:: String -> IO()
     menuBuscar = do
@@ -119,19 +134,24 @@ module Menu where
             putStrLn "Insira um valor válido!\n"
             menuBuscar
 
-    menuRemover:: String -> IO()
-    menuRemover = do
+    menuInputRemover :: IO ()
+    menuInputRemover = do
         putStrLn "\n1 - Remover Doador"
         putStrLn "\n2 - Remover Receptor" 
         putStrLn "\n3 - Voltar pro Menu Principal"
+
         opcao <- getLine
         putStr "\n"
+        menuEditar opcao   
+
+    menuRemover:: String -> IO()
+    menuRemover opcao
 
         | opcao == "1" = do
-            cpf <- deletePerson
+            deletePerson "Doadores"
             
         | opcao == "2" = do
-            cpf <- deletePerson
+            deletePerson "Receptores"
 
         | opcao == "3" = do
             menuPrincipal
@@ -140,42 +160,50 @@ module Menu where
             putStrLn "Insira um valor válido!\n"
             menuRemover
 
-    menuListar:: String -> IO()
-    menuListar = do
+    
+
+    menuInputListar :: IO ()
+    menuInputListar = do
         putStrLn "\n1 - Listar Doadores"
         putStrLn "\n2 - Listar Receptores" 
         putStrLn "\n3 - Listar Doacoes"
         putStrLn "\n4 - Listar Doacoes de Medula"
-        putStrLn "\n5 - Listar Comprovante de Doacoes"
-        putStrLn "\n6 - Listar Comprovante de Doacoes de Medula"
-        putStrLn "\n7 - Voltar pro Menu Principal"
+        putStrLn "\n5 - Listar Comprovantes de Doacoes"
+        putStrLn "\n6 - Voltar pro Menu Principal"
+        
         opcao <- getLine
         putStr "\n"
+        menuListar opcao    
+
+    menuListar:: String -> IO()
+    menuListar opcao
 
         | opcao == "1" = do
-            getAllDoadores
+            resp <- getAllPeople "Doadores"
+            putStr resp
                       
         | opcao == "2" = do
-            getAllReceptores
+            resp <- getAllPeople "Receptores"
+            putStr resp
             
         | opcao == "3" = do
-            getAllDoacoes
+            resp <- getAllDoacoes
+            putStr resp
 
         | opcao == "4" = do
-            getAllDoacoesMedula
+            resp <- getAllDoacoesMedula
+            putStr resp
 
         | opcao == "5" = do
-            getAllComprovanteDoacoes
+            resp <- getAllComprovantes
+            putStr resp
 
         | opcao == "6" = do
-            getAllComprovanteDoacoesMedula     
-
-        | opcao == "7" = do
             menuPrincipal
 
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
-            menuListar
+            menuInputListar
 
     sair :: IO()
     sair = do
