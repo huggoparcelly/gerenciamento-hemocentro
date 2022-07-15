@@ -8,14 +8,16 @@ module Menu where
     import Model.Doacao
     import Model.Person
 
-    menuPrinciapal :: IO()
-    menuPrinciapal = do
+    menuPrincipal :: IO()
+    menuPrincipal = do
         putStrLn "\nBem vindo Gerenciamento de Hemocentro"
         putStrLn "\nPara cadastrar, digite 1;"
         putStrLn "\nPara editar, digite 2;"
         putStrLn "\nPara buscar, digite 3;"
         putStrLn "\nPara remover, digite 4;"
         putStrLn "\nPara listar, digite 5;"
+
+
 
     opcaoMenuPrincipal :: String -> IO()
     opcaoMenuPrincipal opcao
@@ -24,6 +26,7 @@ module Menu where
         | opcao == "3" = menuBuscar
         | opcao == "4" = menuRemover
         | opcao == "5" = menuListar
+        | opcao == "6" = sair
         | otherwise = do
             putStrLn "Insira um valor válido!\n"
             menuPrincipal
@@ -174,8 +177,9 @@ module Menu where
             putStrLn "Insira um valor válido!\n"
             menuListar
 
-
-
+    sair :: IO()
+    sair = do
+    putStrLn $ setColorCiano "\nSaindo...\n"
 
 
         
