@@ -11,7 +11,7 @@ module Util.StringManager where
   -- buscar o cpf(id) do doador
   searchCpf:: IO String
   searchCpf = do
-    putStr "Cpf doador: "
+    putStr "Cpf buscado: "
     getLine
 
 
@@ -43,17 +43,17 @@ module Util.StringManager where
   updateByContent :: String -> String -> String -> IO()
   updateByContent fileName content modelUpdate = do
     model <- getByContent fileName content
-    if model == "Não encontrado." then do putStr model
+    if model == "Não encontrado update." then do putStr model
     else do
-      allContent <- readContent fileName
+    allContent <- readContent fileName
 
-      let path = "database/" ++ fileName ++ ".txt"
-      fileHandle <- openFile path WriteMode
+    let path = "database/" ++ fileName ++ ".txt"
+    fileHandle <- openFile path WriteMode
 
-      updateByContentRecursivo allContent content modelUpdate fileHandle
+    updateByContentRecursivo allContent content modelUpdate fileHandle
 
-      hFlush fileHandle
-      hClose fileHandle
+    hFlush fileHandle
+    hClose fileHandle
 
 
   updateByContentRecursivo :: [String] -> String -> String -> Handle -> IO ()

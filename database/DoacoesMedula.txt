@@ -1,0 +1,1 @@
+Medula {id = "1", doador = "Person {cpf = \"123\", nome = \"Huggo\", tel = \"23123\", endereco = \"local\", tipoSangue = \"O+\"}", date = 2022-07-15}

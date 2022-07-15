@@ -1,8 +1,8 @@
-BolsaSangue {tipoSangue = "A+", quantidade = 0}
+BolsaSangue {tipoSangue = "A+", quantidade = 450}
 BolsaSangue {tipoSangue = "A-", quantidade = 0}
 BolsaSangue {tipoSangue = "B+", quantidade = 0}
 BolsaSangue {tipoSangue = "B-", quantidade = 0}
-BolsaSangue {tipoSangue = "O+", quantidade = 450}
+BolsaSangue {tipoSangue = "O+", quantidade = 0}
 BolsaSangue {tipoSangue = "O-", quantidade = 0}
 BolsaSangue {tipoSangue = "AB+", quantidade = 0}
 BolsaSangue {tipoSangue = "AB-", quantidade = 0}

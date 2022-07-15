@@ -50,7 +50,9 @@ module Service.PersonService where
 
     let newPessoa = Person cpf name tel end tipoSangue
 
-    updateByContent fileName cpf $ show newPessoa
+    deleteByContent fileName cpfToFind
+    addContent fileName $ show newPessoa
+    
     putStrLn "Usuário atualizado com sucesso."
 
   deletePerson :: String -> IO ()

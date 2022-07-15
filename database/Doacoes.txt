@@ -1,2 +1,2 @@
-Doacao {id = "1", doador = "Person {cpf = \"123123\", nome = \"Huggo\", tel = \"123123\", endereco = \"endereco\", tipoSangue = \"O+\"}", tipoSangue = "O+", quantidade = 450, date = 2022-07-15}
-Doacao {id = "2", doador = "Person {cpf = \"123123\", nome = \"Huggo\", tel = \"123123\", endereco = \"endereco\", tipoSangue = \"O+\"}", tipoSangue = "A+", quantidade = 340, date = 2022-07-15}
+Doacao {id = "1", doador = "Person {cpf = \"456\", nome = \"Mariane\", tel = \"234243\", endereco = \"local2\", tipoSangue = \"A+\"}", tipoSangue = "A+", quantidade = 450, date = 2022-07-15}
+Doacao {id = "2", doador = "Person {cpf = \"456\", nome = \"Mariane\", tel = \"234243\", endereco = \"local2\", tipoSangue = \"A+\"}", tipoSangue = "A+", quantidade = 300, date = 2022-07-15}
