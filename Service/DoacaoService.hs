@@ -1,13 +1,13 @@
 module Service.DoacaoService where
 
   import Util.ManagerTxt
-  import Util.ManagerId
+  import Util.IdManager
   import Model.Doacao
 
   import Data.Time.Clock
   import Data.Time.Calendar
   import qualified Data.Functor
-  import Data.List.Split
+  import Data.List
   import Util.StringManager (getByContent, deleteByContent)
   
   today :: IO Day   -- :: (yyyy-mm-dd)
@@ -35,6 +35,7 @@ module Service.DoacaoService where
     dateNow <- today
 
     let pessoa = Doacao id person tipo qnt dateNow
+    createComprovante ComprovanteDoacao.txt getLastId (ComprovanteDoacao.txt) cpf
 
     addContent fileName $ show pessoa
 
@@ -62,9 +63,9 @@ module Service.DoacaoService where
 
         addContent fileName $ show pessoa
       else do                                             --se receptor nao existir, a doaçao acontece de forma normal
-        cpf <- createDoacao
+        cpf <- createDoacao Receptores.txt
     else do                                               --se o doador nao existir, ele é redirecionado para o cadastro
-      cpf <- createPerson
+      cpf <- createPerson Doadores.txt
       
 
   getAllDoacoes :: String -> IO [String]

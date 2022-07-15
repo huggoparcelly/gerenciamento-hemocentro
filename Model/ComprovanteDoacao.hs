@@ -1,5 +1,5 @@
 module Model.ComprovanteDoacao where
   data ComprovanteDoacao  = ComprovanteDoacao {
     cpf:: String,
-    descricao:: String
+    data:: String
   } deriving (Show, Read) 
