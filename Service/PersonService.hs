@@ -6,15 +6,20 @@ module Service.PersonService where
   import Util.StringManager
   
   
-  -- TODO adicionar os outros atributos solicitados para cadastro do doador
   createPerson :: String -> IO()
   createPerson fileName = do
     putStr "Nome: "
     name <- getLine
     putStr "Cpf: "
     cpf <- getLine
+    putStr "Telefone: "
+    tel <- getLine
+    putStr "Endereco: "
+    end <- getLine
+    putStr "Tipo sanguineo: "
+    tipoSangue <- getLine
 
-    let pessoa = Person cpf name
+    let pessoa = Person cpf name tel end tipoSangue
 
     addContent fileName $ show pessoa
     putStrLn "Usuário cadastrado com sucesso!"
@@ -32,12 +37,18 @@ module Service.PersonService where
   putByCpf fileName = do
     cpfToFind <- searchCpf
 
-    -- TODO adicionar os outros atributos de uma pessoa (sempre atualiza tudo)
     putStr "Nome: "
     name <- getLine
     putStr "Cpf: "
     cpf <- getLine
-    let newPessoa = Person cpf name
+    putStr "Telefone: "
+    tel <- getLine
+    putStr "Endereco: "
+    end <- getLine
+    putStr "Tipo sanguineo: "
+    tipoSangue <- getLine
+
+    let newPessoa = Person cpf name tel end tipoSangue
 
     updateByContent fileName cpf $ show newPessoa
     putStrLn "Usuário atualizado com sucesso."

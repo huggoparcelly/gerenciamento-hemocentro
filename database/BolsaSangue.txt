@@ -1,8 +1,8 @@
-BolsaSangue {tipoSangue = "A+", quantidade = 156}
-bolsaSangue {tipoSangue = "A-", quantidade = 1}
-BolsaSangue {tipoSangue = "B+", quantidade = 10}
-BolsaSangue {tipoSangue = "B-", quantidade = 9}
-bolsaSangue {tipoSangue = "O+", quantidade = 1}
-bolsaSangue {tipoSangue = "O-", quantidade = 1}
-BolsaSangue {tipoSangue = "AB+", quantidade = 30}
-BolsaSangue {tipoSangue = "AB-", quantidade = 16}
+BolsaSangue {tipoSangue = "A+", quantidade = 0}
+BolsaSangue {tipoSangue = "A-", quantidade = 0}
+BolsaSangue {tipoSangue = "B+", quantidade = 0}
+BolsaSangue {tipoSangue = "B-", quantidade = 0}
+BolsaSangue {tipoSangue = "O+", quantidade = 0}
+BolsaSangue {tipoSangue = "O-", quantidade = 0}
+BolsaSangue {tipoSangue = "AB+", quantidade = 0}
+BolsaSangue {tipoSangue = "AB-", quantidade = 0}

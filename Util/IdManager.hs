@@ -24,19 +24,22 @@ module Util.IdManager where
   getLastId :: String -> IO Int
   getLastId fileName = do
     allDoacoes <- readContent fileName
-
-    let lastElement = last allDoacoes -- captura o ultimo elemento do array
-    removeCharactersToId lastElement
+    if null allDoacoes then removeCharactersToId ""
+    else do
+      let lastElement = last allDoacoes -- captura o ultimo elemento do array
+      removeCharactersToId lastElement
 
 
   removeCharactersToId :: Monad m => String -> m Int
   removeCharactersToId element = do
-    let drops = dropWhile (/= '=') element
-    let drops2 = takeWhile (/= ',') drops
-    let getW = words drops2
-    let lastW = last getW
-    let drops3 = dropWhile (== '\"') lastW
-    let drops4 = takeWhile (/= '\"') drops3
-    return (read drops4 :: Int)
+    if element == "" then return 0
+    else do
+      let drops = dropWhile (/= '=') element
+      let drops2 = takeWhile (/= ',') drops
+      let getW = words drops2
+      let lastW = last getW
+      let drops3 = dropWhile (== '\"') lastW
+      let drops4 = takeWhile (/= '\"') drops3
+      return (read drops4 :: Int)
 
-  
+

@@ -19,7 +19,7 @@ import Model.Person ()
 import Service.DoacaoMedulaService( 
  createDoacaoMedula, 
  getAllDoacoesMedula )
-import Service.ComprovanteService (getAllComprovantes)
+import Service.ComprovanteService (getAllComprovantes, getComprovanteByCpf)
         
 menuPrincipal :: IO()
 menuPrincipal = do
@@ -34,7 +34,6 @@ menuPrincipal = do
  opcao <- getLine
  putStr "\n"
  opcaoMenuPrincipal opcao
-
 
 
 opcaoMenuPrincipal :: String -> IO()
@@ -121,7 +120,9 @@ menuInputBuscar = do
  putStrLn "\n2 - Buscar Receptor" 
  putStrLn "\n3 - Buscar Doacao"
  putStrLn "\n4 - Buscar Doacao de Medula"
- putStrLn "\n5 - Voltar pro Menu Principal"
+ putStrLn "\n5 - Buscar Comprovante de Doacao por CPF"
+ putStrLn "\n6 - Buscar Comprovante de Doacao de Medula por CPF"
+ putStrLn "\n7 - Voltar pro Menu Principal"
 
  opcao <- getLine
  putStr "\n"
@@ -147,6 +148,14 @@ menuBuscar opcao
  putStr resp
 
  | opcao == "5" = do
+ resp <- getComprovanteByCpf "ComprovanteDoacao"
+ putStr resp
+
+ | opcao == "6" = do
+ resp <- getComprovanteByCpf "ComprovanteDoacao"
+ putStr resp
+
+ | opcao == "7" = do
  menuPrincipal
 
  | otherwise = do

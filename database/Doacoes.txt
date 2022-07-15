@@ -1,0 +1,2 @@
+Doacao {id = "1", doador = "Person {cpf = \"12312\", nome = \"huggo\"}", tipoSangue = "O+", quantidade = 123, date = 2022-07-15}
+Doacao {id = "2", doador = "Person {cpf = \"12312\", nome = \"huggo\"}", tipoSangue = "A+", quantidade = 234, date = 2022-07-15}
