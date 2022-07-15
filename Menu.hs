@@ -132,7 +132,7 @@ menuBuscar :: String -> IO()
 menuBuscar opcao
 
  | opcao == "1" = do
- resp <- getByCpf "Doacoes"
+ resp <- getByCpf "Doadores"
  putStr resp
 
  | opcao == "2" = do
