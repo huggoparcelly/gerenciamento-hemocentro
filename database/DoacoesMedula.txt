@@ -1,2 +1,0 @@
-DoacaoMedula {id = 1, doador = "Person {cpf = \"12312312311\", nome = \"Huggo\"}", date = 2022-07-13}
-DoacaoMedula {id = 2, doador = "Person {cpf = \"12341234\", nome = \"Cris\"}", date = 2022-07-14}

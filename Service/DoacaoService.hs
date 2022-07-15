@@ -103,9 +103,6 @@ module Service.DoacaoService where
   getAllDoacoes :: String -> IO [String]
   getAllDoacoes = readContent
 
-  getAllComprovanteDoacoes :: String -> IO [String]
-  getAllComprovanteDoacoes = readContent
-
   getDoacaoById :: String -> IO String
   getDoacaoById fileName = do
     idToFind <- searchId

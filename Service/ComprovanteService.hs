@@ -2,8 +2,6 @@ module Service.ComprovanteService where
 
   import Model.ComprovanteDoacao
   import Util.ManagerTxt
-  import Util.IdManager
-  --  import Service.DoacaoService (getDoacaoById)
   import Util.StringManager  
   import Data.Time
   
@@ -12,7 +10,7 @@ module Service.ComprovanteService where
   createComprovante fileName cpf dia = do
    
    let texto = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o nº: " ++ cpf ++
-        " , doou sangue voluntariamente ao(à) Hemocentro, na data: " ++ show dia ++ "."
+        " , doou sangue/medula voluntariamente ao(à) Hemocentro, na data: " ++ show dia ++ "."
    let comprovante = ComprovanteDoacao cpf texto
 
    addContent fileName $ show comprovante --Adiciona o objeto comprovante

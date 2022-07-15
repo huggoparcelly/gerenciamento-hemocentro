@@ -28,6 +28,3 @@
 
   getAllDoacoesMedula :: String -> IO [String]
   getAllDoacoesMedula = readContent
-
-  getAllComprovanteDoacoesMedula :: String -> IO [String]
-  getAllComprovanteDoacoesMedula = readContent
