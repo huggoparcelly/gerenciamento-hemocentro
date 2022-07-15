@@ -1,1 +1,0 @@
-Person {cpf = "12312", nome = "huggo"}
