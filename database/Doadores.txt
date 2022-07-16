@@ -1,2 +1,2 @@
-Person {cpf = "123", nome = "Huggo", tel = "345345", endereco = "local", tipoSangue = "O+"}
+Person {cpf = "123", nome = "Jose", tel = "345345", endereco = "local", tipoSangue = "A-"}
 Person {cpf = "456", nome = "Mariane", tel = "234243", endereco = "local2", tipoSangue = "A+"}
