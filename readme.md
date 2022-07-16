@@ -8,7 +8,6 @@
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#especificações">Especificações</a> • 
  <a href="#como-executar-o-projeto">Como Executar</a> • 
- <a href="#licenc-a">Licença</a> • 
  <a href="#autores">Autores</a>
 </p>
 
@@ -22,15 +21,11 @@ Programa que simula um sistema para o gerenciamento de um hemocentro, no qual po
 [Documento](https://docs.google.com/document/d/13QJxyVWj3aLhTTgFNJPp8ZkLqqU5z0Hty5SqhFRYS_4/edit) que contém as especificações do projeto.
 
 ## Como Executar o Projeto 💻
-
-Para utilizar o sistema é preciso realizar o clone do repositório em uma pasta.
-
-
-### Pré-requisitos
+### - Pré-requisitos
 Você precisa ter instalado em sua máquina o [Git](https://git-scm.com).
 
 
-### Instalando o Hashell ⚙
+### - Instalando o Hashell ⚙
 Para rodar o projeto, você precisa instalar o [GHCup](https://www.haskell.org/ghcup/):
 ```bash
 # instalando GHCup
@@ -38,7 +33,7 @@ $ curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 ```
 
 
-### Rodando o projeto 🪄
+### - Rodando o projeto 🪄
 ```bash
 # Clone este repositório
 $ git clone git@github.com:huggoparcelly/gerenciamento-hemocentro.git
