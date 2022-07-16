@@ -23,7 +23,6 @@ import Service.ComprovanteService (getAllComprovantes, getComprovanteByCpf)
         
 menuPrincipal :: IO()
 menuPrincipal = do
- putStrLn "\nBem vindo Gerenciamento de Hemocentro"
  putStrLn "\nPara cadastrar, digite 1;"
  putStrLn "\nPara editar, digite 2;"
  putStrLn "\nPara buscar, digite 3;"
@@ -35,6 +34,13 @@ menuPrincipal = do
  putStr "\n"
  opcaoMenuPrincipal opcao
 
+ if  opcao /= "6" then menuPrincipal
+ else quit
+
+
+quit:: IO()
+quit = do
+    putStrLn "Encerrando o sistema..."
 
 opcaoMenuPrincipal :: String -> IO()
 opcaoMenuPrincipal opcao
@@ -46,7 +52,6 @@ opcaoMenuPrincipal opcao
  | opcao == "6" = sair
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
- menuPrincipal
 
 menuInputCadastro :: IO ()
 menuInputCadastro = do
