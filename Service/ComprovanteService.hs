@@ -5,7 +5,11 @@ module Service.ComprovanteService where
   import Util.StringManager  
   import Data.Time
   
- --Registra um novo comprovante no sistema 
+ -- Registra um novo comprovante no sistema
+ -- Parâmetros= fileName: o nome do aquivo onde será buscado o id,
+ -- cpf: cpf da pessoa que realizou a doacao
+ -- dia: o dia em que foi foito a doacao
+ -- cria um comprovante de doacao
   createComprovante:: String -> String -> Day -> IO()
   createComprovante fileName cpf dia = do
    
@@ -13,14 +17,10 @@ module Service.ComprovanteService where
         " , doou sangue/medula voluntariamente ao(à) Hemocentro, na data: " ++ show dia ++ "."
    let comprovante = ComprovanteDoacao cpf texto
 
-   addContent fileName $ show comprovante --Adiciona o objeto comprovante
+   addContent fileName $ show comprovante
 
- -- Retorna todos os comprovantes registrados no banco de dados
+  -- Retorna todos os comprovantes registrados no banco de dados
+  -- Parâmetros= fileName: o nome do aquivo onde será buscado o id
+  -- Retorna um array com todas as pessoas do banco escolhido
   getAllComprovantes :: String -> IO [String]
   getAllComprovantes = readContent
-
-  getComprovanteByCpf:: String -> IO String
-  getComprovanteByCpf fileName = do
-    comprovanteToFind <- searchCpf
-
-    getByContent fileName comprovanteToFind
