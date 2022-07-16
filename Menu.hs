@@ -48,7 +48,7 @@ opcaoMenuPrincipal opcao
  | opcao == "3" = menuInputBuscar
  | opcao == "4" = menuInputRemover
  | opcao == "5" = menuInputListar
- | opcao == "6" = sair
+ | opcao == "6" = putStrLn "Saindo..."
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
 
@@ -253,8 +253,8 @@ menuListar opcao
  putStrLn "Insira um valor válido!\n"
  menuInputListar
 
---Função executada quando o usuário decide sair do sistema. Exibe uma mensagem que informa o encerramento.
+--Função executada quando o usuário decide sair do sistema. Exibe uma mensagem.
 --Parâmetros: Essa função não recebe parâmetros.
 sair :: IO()
 sair = do
- putStrLn "Encerrando o sistema..."
+ putStrLn "Até mais!"
