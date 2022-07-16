@@ -19,6 +19,7 @@ import Model.Person ()
 import Service.DoacaoMedulaService( 
  createDoacaoMedula, 
  getAllDoacoesMedula )
+import Service.RecepcaoService (realizaColeta)
 import Service.ComprovanteService (getAllComprovantes, getComprovanteByCpf)
         
 menuPrincipal :: IO()
@@ -29,7 +30,8 @@ menuPrincipal = do
  putStrLn "\nPara buscar, digite 3;"
  putStrLn "\nPara remover, digite 4;"
  putStrLn "\nPara listar, digite 5;"
- putStrLn "\nPara sair, digite 6;"
+ putStrLn "\nPara coletar bolsas, digite 6;"
+ putStrLn "\nPara sair, digite 7;"
 
  opcao <- getLine
  putStr "\n"
@@ -43,7 +45,8 @@ opcaoMenuPrincipal opcao
  | opcao == "3" = menuInputBuscar
  | opcao == "4" = menuInputRemover
  | opcao == "5" = menuInputListar
- | opcao == "6" = sair
+ | opcao == "6" = menuInputColetaBolsas
+ | opcao == "7" = sair
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
  menuPrincipal
@@ -230,6 +233,30 @@ menuListar opcao
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
  menuInputListar
+
+-- Menu que capta a intenção do usuario em relacao a coleta
+menuInputColetaBolsas :: IO ()
+menuInputColetaBolsas = do
+ putStrLn "\n1 - Selecionar o tipo sanguineo e a quantidade"
+ putStrLn "\n2 - Voltar pro Menu Principal"
+ 
+ opcao <- getLine
+ putStr "\n"
+ menuColetaBolsas opcao
+
+-- Menu que processa a escolha do usuario em relacao a coleta
+menuColetaBolsas :: [Char] -> IO ()
+menuColetaBolsas opcao 
+ 
+ | opcao == "1" = do
+ realizaColeta
+ menuInputColetaBolsas
+ | opcao == "2" = do
+ menuPrincipal
+ | otherwise = do
+ putStrLn "Insira um valor válido!\n"
+ menuInputColetaBolsas
+
 
 sair :: IO()
 sair = do
