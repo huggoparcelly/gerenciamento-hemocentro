@@ -1,5 +1,9 @@
 import System.IO
-import Menu
+import Util.ManagerTxt ( welcomeScreen )
+import Menu ( menuPrincipal )
 
 main :: IO ()
-main = menuPrincipal
+
+main = do
+    putStrLn welcomeScreen 
+    menuPrincipal
