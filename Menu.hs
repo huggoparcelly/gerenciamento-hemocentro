@@ -19,7 +19,8 @@ import Model.Person ()
 import Service.DoacaoMedulaService( 
  createDoacaoMedula, 
  getAllDoacoesMedula )
-import Service.ComprovanteService (getAllComprovantes, getComprovanteByCpf)
+import Service.ComprovanteService (getAllComprovantes)
+import Service.RecepcaoService (realizaColeta)
 
 --Essa função funciona como o menu principal do sistema, onde o usuário pode decidir o que irá fazer.
 --Parâmetros: String que indica a ação que será realizadda.
@@ -61,7 +62,8 @@ menuInputCadastro = do
  putStrLn "\n3 - Cadastrar nova Doacao"
  putStrLn "\n4 - Cadastrar nova Doacao Direcionada"
  putStrLn "\n5 - Cadastrar nova Doacao de Medula"
- putStrLn "\n6 - Voltar pro Menu Principal"
+ putStrLn "\n6 - Cadastrar nova Coleta de Sangue"
+ putStrLn "\n7 - Voltar pro Menu Principal"
 
  opcao <- getLine
  putStr "\n"
@@ -79,15 +81,18 @@ menuCadastrar opcao
  createPerson "Receptores"
 
  | opcao == "3" =
- createDoacao "Doacoes"
+ createDoacao
 
  | opcao == "4" =
- createDoacaoDirecionada "Doacoes"
+ createDoacaoDirecionada
 
  | opcao == "5" =
  createDoacaoMedula "DoacoesMedula"
-
+ 
  | opcao == "6" = do
+ realizaColeta
+ 
+ | opcao == "7" = do
  menuPrincipal
  
  | otherwise = do
@@ -132,9 +137,7 @@ menuInputBuscar = do
  putStrLn "\n2 - Buscar Receptor" 
  putStrLn "\n3 - Buscar Doacao"
  putStrLn "\n4 - Buscar Doacao de Medula"
- putStrLn "\n5 - Buscar Comprovante de Doacao por CPF"
- putStrLn "\n6 - Buscar Comprovante de Doacao de Medula por CPF"
- putStrLn "\n7 - Voltar pro Menu Principal"
+ putStrLn "\n5 - Voltar pro Menu Principal"
 
  opcao <- getLine
  putStr "\n"
@@ -154,22 +157,14 @@ menuBuscar opcao
  putStr resp
 
  | opcao == "3" = do
- resp <- getDoacaoById "Doacoes"
+ resp <- getDoacaoById
  putStr resp
 
  | opcao == "4" = do
- resp <- getDoacaoById "DoacoesMedula"
+ resp <- getDoacaoById
  putStr resp
 
  | opcao == "5" = do
- resp <- getComprovanteByCpf "ComprovanteDoacao"
- putStr resp
-
- | opcao == "6" = do
- resp <- getComprovanteByCpf "ComprovanteDoacao"
- putStr resp
-
- | opcao == "7" = do
  menuPrincipal
 
  | otherwise = do
@@ -235,7 +230,7 @@ menuListar opcao
  print resp
 
  | opcao == "3" = do
- resp <- getAllDoacoes "Doacoes"
+ resp <- getAllDoacoes
  print resp
 
  | opcao == "4" = do

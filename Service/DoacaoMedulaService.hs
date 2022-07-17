@@ -22,7 +22,7 @@
 
     let pessoa = Medula id person dateNow
 
-    createComprovante "ComprovanteDoacao" cpf dateNow
+    createComprovante cpf dateNow
     
     addContent fileName $ show pessoa
 

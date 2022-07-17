@@ -1,4 +1,4 @@
-BolsaSangue {tipoSangue = "A+", quantidade = 54}
+BolsaSangue {tipoSangue = "A+", quantidade = 4}
 BolsaSangue {tipoSangue = "A-", quantidade = 0}
 BolsaSangue {tipoSangue = "B+", quantidade = 0}
 BolsaSangue {tipoSangue = "B-", quantidade = 0}

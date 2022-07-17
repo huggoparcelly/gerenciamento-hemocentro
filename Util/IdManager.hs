@@ -5,13 +5,16 @@ module Util.IdManager where
   import Prelude as P
   import Util.ManagerTxt
 
-  -- Input de entrada para buscar um id
+  -- Solicita ao usuario que digite um id para ser buscado
+  -- Retorna o id que foi digitado pelo usuario como string 
   searchId :: IO String
   searchId = do
     putStr "Id buscado: "
     getLine
 
-  -- busca o ultimo id e incrementa 1
+  -- Busca o ultimo id e incrementa 1
+  -- Parâmetros= fileName: o nome do aquivo onde será buscado o id,
+  -- Retorna o ultimo id incrementado de 1
   incrementaId :: String -> IO String
   incrementaId fileName = do
     lastId <- getLastId fileName
@@ -21,25 +24,35 @@ module Util.IdManager where
 
 
   -- Função que busca o ultimo id
+  -- busca todo conteudo do txt
+  -- utiliza-se da funcao removeCharactersToId para fazer a manipulacao da string
+  -- passando um conteudo vazio caso nao existe nada armazenado no txt
+  -- ou passando o ultimo elemento do array que foi encontrado
+  -- Parâmetros= fileName: o nome do aquivo onde será buscado o id,
+  -- Retorna o ultimo id
   getLastId :: String -> IO Int
   getLastId fileName = do
-    allDoacoes <- readContent fileName
-    if null allDoacoes then removeCharactersToId ""
+    allContent <- readContent fileName
+    if null allContent then removeCharactersToId ""
     else do
-      let lastElement = last allDoacoes -- captura o ultimo elemento do array
+      let lastElement = last allContent
       removeCharactersToId lastElement
 
-
+  -- Manipula a string que foi recebida para retornar o valo do id
+  -- caso o conteudo passado seja um conteudo vazido retorna o id como 0
+  -- caso receba uma string com conteudo, então é feito as devidas manipulacoes para retornar apenas o numero do id
+  -- Parametros= element: uma string a ser manipulada
+  -- Retorna o valor do id em inteiro
   removeCharactersToId :: Monad m => String -> m Int
-  removeCharactersToId element = do
-    if element == "" then return 0
+  removeCharactersToId content = do
+    if content == "" then return 0
     else do
-      let drops = dropWhile (/= '=') element
-      let drops2 = takeWhile (/= ',') drops
-      let getW = words drops2
+      let drops = dropWhile (/= '=') content
+      let take = takeWhile (/= ',') drops
+      let getW = words take
       let lastW = last getW
-      let drops3 = dropWhile (== '\"') lastW
-      let drops4 = takeWhile (/= '\"') drops3
-      return (read drops4 :: Int)
+      let drops2 = dropWhile (== '\"') lastW
+      let take2 = takeWhile (/= '\"') drops2
+      return (read take2 :: Int)
 
 

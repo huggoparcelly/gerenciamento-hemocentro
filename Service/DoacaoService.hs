@@ -5,9 +5,8 @@ module Service.DoacaoService where
   import Model.Doacao
   import Data.Time.Clock
   import Data.Time.Calendar
-  import qualified Data.Functor
   import Util.StringManager
-  import Model.BolsaSangue (BolsaSangue(BolsaSangue))
+  import Model.BolsaSangue
   import Service.PersonService
   import Service.ComprovanteService
 
