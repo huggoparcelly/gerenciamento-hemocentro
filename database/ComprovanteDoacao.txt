@@ -1,0 +1,4 @@
+ComprovanteDoacao {cpf = "456", descricao = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o n\186: 456 , doou sangue/medula voluntariamente ao(\224) Hemocentro, na data: 2022-07-15."}
+ComprovanteDoacao {cpf = "111", descricao = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o n\186: 111 , doou sangue/medula voluntariamente ao(\224) Hemocentro, na data: 2022-07-15."}
+ComprovanteDoacao {cpf = "123", descricao = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o n\186: 123 , doou sangue/medula voluntariamente ao(\224) Hemocentro, na data: 2022-07-16."}
+ComprovanteDoacao {cpf = "123", descricao = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o n\186: 123 , doou sangue/medula voluntariamente ao(\224) Hemocentro, na data: 2022-07-16."}
