@@ -23,7 +23,7 @@ module Service.RecepcaoService where
         if qtdEstoque >= qtdSolicitada then do
             let qtdAtt = qtdEstoque - qtdSolicitada
             let bolsaNew = BolsaSangue tipoDeSangue qtdAtt
-            
+
             updateByContent "BolsaSangue" tipoDeSangue $show bolsaNew
             putStrLn "Bolsas entregues!"
         else do
@@ -31,9 +31,5 @@ module Service.RecepcaoService where
 
     else do
         putStrLn "Tipo de sangue invalido."
-
-
---   checkTipoExist :: String -> String -> Bool
---   checkTipoExist tipo content = ("tipoSangue = " ++ "\"" ++ tipo ++ "\"") `isInfixOf` content
     
   
