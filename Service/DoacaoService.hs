@@ -5,9 +5,8 @@ module Service.DoacaoService where
   import Model.Doacao
   import Data.Time.Clock
   import Data.Time.Calendar
-  import qualified Data.Functor
   import Util.StringManager
-  import Model.BolsaSangue (BolsaSangue(BolsaSangue))
+  import Model.BolsaSangue
   import Service.PersonService
   import Service.ComprovanteService
 
@@ -23,15 +22,22 @@ module Service.DoacaoService where
   fileNameReceptores :: String
   fileNameReceptores = "Receptores"
 
+  fileNameDoacoes :: String 
+  fileNameDoacoes = "Doacoes"
 
-  createDoacao :: String -> IO()
-  createDoacao fileName = do
+
+{-  Cria uma doação no Docacoes.txt, consequentemente um Comprovante de Doação também é criado
+    e incrementa o estoque de sangue com o que foi doado.
+    Captura as inforamções via console
+-}
+  createDoacao :: IO()
+  createDoacao = do
     putStr "CPF do doador: "
     cpf <- getLine
 
     person <- getByContent fileNameDoadores cpf
 
-    id <- incrementaId fileName
+    id <- incrementaId fileNameDoacoes
 
     putStr "Tipo de sangue: "
     tipo <- getLine
@@ -43,7 +49,7 @@ module Service.DoacaoService where
 
     let doacao = Doacao id person tipo qnt dateNow
 
-    createComprovante "ComprovanteDoacao" cpf dateNow
+    createComprovante cpf dateNow
 
     linhaBolsa <- getByContent fileNameBolsas tipo
     qtdOld <- getQtdFromBolsas linhaBolsa
@@ -54,9 +60,13 @@ module Service.DoacaoService where
 
     updateByContent fileNameBolsas tipo $show bolsaNew
 
-    addContent fileName $show doacao
+    addContent fileNameDoacoes $show doacao
 
 
+{-  Busca em uma linha do tipo BolsaSangue a quantidade atual
+    Parametros = element: linha do tipo BolsaSangue
+    Retorno    = quantidade de sangue atual
+-}
   getQtdFromBolsas :: Monad m => String -> m Int
   getQtdFromBolsas element = do
     let teste = dropWhile (/= ',') element
@@ -64,23 +74,24 @@ module Service.DoacaoService where
     let takeElement = takeWhile (/= '}') dropElements -- retorna os caracteres até a , ("= ID")
     let getId = words takeElement  -- faz um split do "= ID" (["", "ID"])
     let idStr = last getId
-
     return (read idStr :: Int)
 
 
-  createDoacaoDirecionada :: String -> IO()
-  createDoacaoDirecionada fileName = do
+{-  Cria uma doação direcionada a uma pessoa cadastrada em Receptores.text
+    Captura as informações via console 
+-}
+  createDoacaoDirecionada :: IO()
+  createDoacaoDirecionada = do
     putStr "CPF do receptor: "
     cpf <- getLine
     receptor <- getByContent fileNameReceptores cpf
 
-    if checkIfExist cpf receptor then do                    --verifica se o receptor existe
+    if checkIfExist cpf receptor then do
       putStr "CPF do doador: "
       cpfDoador <- getLine
       doador <- getByContent fileNameDoadores cpfDoador
-
-      if checkIfExist cpfDoador doador then do                    --verifica se o doador existe
-        id <- incrementaId fileName
+      if checkIfExist cpfDoador doador then do
+        id <- incrementaId fileNameDoacoes
 
         putStr "Tipo de sangue: "
         tipo <- getLine
@@ -88,23 +99,30 @@ module Service.DoacaoService where
         qnt <- readLn
         dateNow <- today
 
+        createComprovante cpf dateNow
+
         let doacao = Doacao id doador tipo qnt dateNow
-
-        createComprovante "ComprovanteDoacao" cpf dateNow
-
-        addContent fileName $ show doacao
-      else do                                             --se receptor nao existir, a doaçao acontece de forma normal
+        addContent fileNameDoacoes $ show doacao
+      else do
         putStrLn "Vamos se cadastrar para poder ajudar mais pessoas?"
         createPerson "Doadores"
-    else do                                               --se o doador nao existir, ele é redirecionado para o cadastro
+    else do
       putStrLn "Seu receptor é inexistente, mas sua doação será armazenada em nosso banco."
-      createDoacao "Doacoes"
+      createDoacao
 
 
-  getAllDoacoes :: String -> IO [String]
-  getAllDoacoes = readContent
+{-  Busca todas as Doações cadastradas em Doacoes.text
+    Retorno    = todas as doações
+-}
+  getAllDoacoes :: IO [String]
+  getAllDoacoes = readContent fileNameDoacoes
 
-  getDoacaoById :: String -> IO String
-  getDoacaoById fileName = do
+
+{-  Busca uma doação pelo ID
+    ID capturado via console
+    Retorno    = doação do tipo Doacao
+-} 
+  getDoacaoById :: IO String
+  getDoacaoById = do
     idToFind <- searchId
-    getByContent fileName idToFind
+    getByContent fileNameDoacoes idToFind

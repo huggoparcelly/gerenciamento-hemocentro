@@ -23,7 +23,8 @@ module Util.ManagerTxt where
       evaluate (P.length stringContent)
       return (P.lines stringContent)
 
-
+  -- Função que retorna a data de uma doação no formato (ano-mês-dia).
+  -- Parâmetros: Doação. A partir dela que é retornada a data.
   getDate :: ParseTime t => [Char] -> t
   getDate doacao = do
 
@@ -34,6 +35,8 @@ module Util.ManagerTxt where
     let parse = parseTimeOrError True defaultTimeLocale "%Y-%-m-%-d" date
     parse
   
+  --Funcao que exibe um banner de boas vindas ao usuário. 
+  --Parametros: Essa função não recebe parâmetros.
   welcomeScreen:: String
   welcomeScreen = "######\n" ++
       "#     # ###### #    #    #    # # #    # #####   ####       ##    ####\n" ++

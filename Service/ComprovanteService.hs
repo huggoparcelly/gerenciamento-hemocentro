@@ -4,20 +4,23 @@ module Service.ComprovanteService where
   import Util.ManagerTxt
   import Util.StringManager  
   import Data.Time
+
+  fileNameComprovante :: String
+  fileNameComprovante = "ComprovanteDoacao" 
   
  -- Registra um novo comprovante no sistema
  -- Parâmetros= fileName: o nome do aquivo onde será buscado o id,
  -- cpf: cpf da pessoa que realizou a doacao
  -- dia: o dia em que foi foito a doacao
  -- cria um comprovante de doacao
-  createComprovante:: String -> String -> Day -> IO()
-  createComprovante fileName cpf dia = do
+  createComprovante:: String -> Day -> IO()
+  createComprovante cpf dia = do
    
    let texto = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o nº: " ++ cpf ++
         " , doou sangue/medula voluntariamente ao(à) Hemocentro, na data: " ++ show dia ++ "."
    let comprovante = ComprovanteDoacao cpf texto
 
-   addContent fileName $ show comprovante
+   addContent fileNameComprovante $ show comprovante
 
   -- Retorna todos os comprovantes registrados no banco de dados
   -- Parâmetros= fileName: o nome do aquivo onde será buscado o id

@@ -20,7 +20,10 @@ import Service.DoacaoMedulaService(
  createDoacaoMedula, 
  getAllDoacoesMedula )
 import Service.ComprovanteService (getAllComprovantes)
-        
+import Service.RecepcaoService (realizaColeta)
+
+--Essa função funciona como o menu principal do sistema, onde o usuário pode decidir o que irá fazer.
+--Parâmetros: String que indica a ação que será realizadda.
 menuPrincipal :: IO()
 menuPrincipal = do
  putStrLn "\nPara cadastrar, digite 1;"
@@ -35,13 +38,10 @@ menuPrincipal = do
  opcaoMenuPrincipal opcao
 
  if  opcao /= "6" then menuPrincipal
- else quit
+ else sair
 
-
-quit:: IO()
-quit = do
-    putStrLn "Encerrando o sistema..."
-
+--Essa função lida com a entrada passada no menu principal e então re-direciona o usuário para um menu específico.
+--Parãmetros: String que indica o menu a ser ser chamado.
 opcaoMenuPrincipal :: String -> IO()
 opcaoMenuPrincipal opcao
  | opcao == "1" = menuInputCadastro
@@ -49,10 +49,12 @@ opcaoMenuPrincipal opcao
  | opcao == "3" = menuInputBuscar
  | opcao == "4" = menuInputRemover
  | opcao == "5" = menuInputListar
- | opcao == "6" = sair
+ | opcao == "6" = putStrLn "Saindo..."
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
 
+--Essa função funciona como o menu específico para cadastro.
+--Parâmetros: String que indica o que o usuário deseja cadastrar.
 menuInputCadastro :: IO ()
 menuInputCadastro = do
  putStrLn "\n1 - Cadastrar novo Doador"
@@ -60,13 +62,15 @@ menuInputCadastro = do
  putStrLn "\n3 - Cadastrar nova Doacao"
  putStrLn "\n4 - Cadastrar nova Doacao Direcionada"
  putStrLn "\n5 - Cadastrar nova Doacao de Medula"
- putStrLn "\n6 - Voltar pro Menu Principal"
+ putStrLn "\n6 - Cadastrar nova Coleta de Sangue"
+ putStrLn "\n7 - Voltar pro Menu Principal"
 
  opcao <- getLine
  putStr "\n"
  menuCadastrar opcao
 
-
+--Função que trabalha em conjunto com menuInputCadastro, criando objetos e indicando onde eles serão armazenados.
+--Parâmetros: String que indica o que será criado e onde será armazenado.
 menuCadastrar :: String -> IO()
 menuCadastrar opcao
  
@@ -77,21 +81,26 @@ menuCadastrar opcao
  createPerson "Receptores"
 
  | opcao == "3" =
- createDoacao "Doacoes"
+ createDoacao
 
  | opcao == "4" =
- createDoacaoDirecionada "Doacoes"
+ createDoacaoDirecionada
 
  | opcao == "5" =
  createDoacaoMedula "DoacoesMedula"
-
+ 
  | opcao == "6" = do
+ realizaColeta
+ 
+ | opcao == "7" = do
  menuPrincipal
  
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
  menuInputCadastro
 
+--Essa função funciona como um menu específico para edições de objetos no sistema.
+--Parâmetros: String que indica o que será editado. Retornar ao menu principal também é uma opção.
 menuInputEditar :: IO ()
 menuInputEditar = do
  putStrLn "\n1 - Editar Doador"
@@ -102,7 +111,8 @@ menuInputEditar = do
  putStr "\n"
  menuEditar opcao
 
-
+--Essa função funciona em conjunto com menuInputEditar, editando os objetos e indicando onde eles estão.
+--Parâmetros: String que indica qual objeto será editado e onde ele está armazenado.
 menuEditar:: String -> IO()
 menuEditar opcao
 
@@ -119,19 +129,22 @@ menuEditar opcao
  putStrLn "Insira um valor válido!\n"
  menuInputEditar
 
+--Essa função funciona como um menu específico para buscas no sistema.
+--Parâmetros: String que indica o que o usuário deseja buscar. Retornar ao menu principal também é uma opção.
 menuInputBuscar :: IO()
 menuInputBuscar = do
  putStrLn "\n1 - Buscar Doador"
  putStrLn "\n2 - Buscar Receptor" 
  putStrLn "\n3 - Buscar Doacao"
  putStrLn "\n4 - Buscar Doacao de Medula"
- putStrLn "\n5 - Buscar Comprovantes de Doacao"
- putStrLn "\n6 - Voltar pro Menu Principal"
+ putStrLn "\n5 - Voltar pro Menu Principal"
 
  opcao <- getLine
  putStr "\n"
  menuBuscar opcao
 
+--Essa função funciona em conjunto com menuInputBuscar. Buscando os objetos e os retornando.
+--Parâmetros: String que indica qual objeto deve ser buscado e onde deve ser buscado.
 menuBuscar :: String -> IO()
 menuBuscar opcao
 
@@ -144,24 +157,22 @@ menuBuscar opcao
  putStr resp
 
  | opcao == "3" = do
- resp <- getDoacaoById "Doacoes"
+ resp <- getDoacaoById
  putStr resp
 
  | opcao == "4" = do
- resp <- getDoacaoById "DoacoesMedula"
+ resp <- getDoacaoById
  putStr resp
 
  | opcao == "5" = do
- resp <- getAllComprovantes "ComprovanteDoacao"
- print resp
-
- | opcao == "6" = do
  menuPrincipal
 
  | otherwise = do
  putStrLn "Insira um valor válido!\n"
  menuInputBuscar
 
+--Essa função funciona como um menu específico para remoções no sistema.
+--Parâmetros: String que indica o que será removido. Retornar ao menu principal também é uma opção.
 menuInputRemover :: IO ()
 menuInputRemover = do
  putStrLn "\n1 - Remover Doador"
@@ -172,6 +183,8 @@ menuInputRemover = do
  putStr "\n"
  menuRemover opcao
 
+--Essa função funciona em conjunto com menuInputRemover. Removendo objetos do sistema.
+--Parâmetros: String que indica qual objeto será removido e onde ele esta armazenado.
 menuRemover:: String -> IO()
 menuRemover opcao
 
@@ -188,6 +201,8 @@ menuRemover opcao
  putStrLn "Insira um valor válido!\n"
  menuInputRemover
 
+--Essa função funciona como um menu específico para listagem no sistema.
+--Parâmetros: String que indica o que será listado. Retornar ao menu principal também é uma opção.
 menuInputListar :: IO ()
 menuInputListar = do
  putStrLn "\n1 - Listar Doadores"
@@ -201,6 +216,8 @@ menuInputListar = do
  putStr "\n"
  menuListar opcao
 
+--Essa função funciona em conjunto com menuInputListar. Listando objetos do sistema.
+--Parâmetros: String que indica quais objetos serão listados e onde estão armazenados.
 menuListar:: String -> IO()
 menuListar opcao
 
@@ -213,7 +230,7 @@ menuListar opcao
  print resp
 
  | opcao == "3" = do
- resp <- getAllDoacoes "Doacoes"
+ resp <- getAllDoacoes
  print resp
 
  | opcao == "4" = do
@@ -231,6 +248,8 @@ menuListar opcao
  putStrLn "Insira um valor válido!\n"
  menuInputListar
 
+--Função executada quando o usuário decide sair do sistema. Exibe uma mensagem.
+--Parâmetros: Essa função não recebe parâmetros.
 sair :: IO()
 sair = do
- putStrLn "Sair"
+ putStrLn "Até mais!"
