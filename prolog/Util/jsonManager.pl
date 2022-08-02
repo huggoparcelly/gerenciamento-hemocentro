@@ -100,9 +100,81 @@ updatePersonJson([H|T], Cpf, Nome, Tel, Endereco, TipoSangue, [H|Out]) :-
   updatePersonJson(T, Cpf, Nome, Tel, Endereco, TipoSangue, Out).
 
 updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
-		readJson(FileName, File),
-		updatePersonJson(File, CPf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue, SaidaParcial),
-		personsToJson(SaidaParcial, Saida),
-		open(FilePath, write, Stream), 
-    write(Stream, Saida),
-    close(Stream).
+  readJson(FileName, File),
+  updatePersonJson(File, CPf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue, SaidaParcial),
+  personsToJson(SaidaParcial, Saida),
+  open(FilePath, write, Stream), 
+  write(Stream, Saida),
+  close(Stream).
+
+
+%GetDoacaoById
+
+getDoacaoRecursivamente([], _, "").
+getDoacaoRecursivamente([H|T], Id, Out):-
+(H.Id = Id -> Out = H); 
+(getDoacaoRecursivamente(T, Id, Out)).
+
+getDoacaoById(FileName, Id, Result):-
+readJson(FileName, File),
+getDoacaoRecursivamente(File, Id, Result).
+
+checaExistenciaDoacao(Filename, Id):-
+readJson(FileName, File),
+getDoacaoRecursivamente(File, Id, Result),
+Result \= "".
+
+%GetAllDoacoes
+
+getAllDoacoesAux([]).
+getAllDoacoesAux([H|T]):-
+write("id: "), write(H.id), nl,
+write("doador: "), write(H.doador), nl,
+write("tipo: "), write(H.tipo), nl,
+write("quantidade: "), write(H.quantidade), nl,
+write("data: "), write(H.data), nl,
+getAllDoacoesAux(T).
+
+getAllDoacoes(FileName):-
+readJson(FileName, File),
+getAllDoacoesAux(File).
+
+%AddDoacao
+
+addDoacao(FileName, Id, Doador, TipoSangue, Quantidade, Data) :- 
+readJson(FileName, File),
+doacaoToJson(File, ListaDoacoesJSON),
+doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, DoacaoJSON),
+append(ListaDoacoesJSON, [DoacaoJSON], Saida),
+getFilePath(FileName, FilePath),
+open(FilePath, write, Stream), 
+write(Stream, Saida), 
+close(Stream).
+
+%GetBagByBloodType
+
+getBagRecursivamente([], _, "").
+getBagRecursivamente([H|T], Tipo, Out):-
+(H.Tipo = Tipo -> Out = H);
+(getBagRecursivamente(File, Id, Out)).
+
+getBagByBloodType(FileName, Id, Result):-
+readJson(FileName, File),
+getBagRecursivamente(File, Id, Result).
+
+checaExistenciaBag(Filename, TipoSangue):-
+readJson(FileName, File),
+getBagRecursivamente(File, TipoSangue, Result),
+Result \= "".
+
+%GetAllBags
+
+getAllBagsAux([]).
+getAllBagsAux([H|T]):-
+write("tipo: "), write(H.tipoSangue), nl,
+write("quantidade: "), write(H.quantidade), nl,
+getAllBagsAux(T).
+
+getAllBags(FileName):-
+readJson(FileName, File),
+getAllBagsAux(File).
