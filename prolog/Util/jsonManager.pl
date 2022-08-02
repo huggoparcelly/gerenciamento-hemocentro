@@ -65,13 +65,36 @@ addPerson(FileName, Cpf, Nome, Tel, Endereco, TipoSangue) :-
 % Remove Person
 removerPersonJson([], _, []).
 removerPersonJson([H|T], H.cpf, T).
-removerPersonJson([H|T], Id, [H|Out]) :- 
-  removerPersonJson(T, Id, Out).
+removerPersonJson([H|T], Cpf, [H|Out]) :- 
+  removerPersonJson(T, Cpf, Out).
 
-removerPerson(FilePath, Cpf) :-
-   readJson(FilePath, File),
+removerPerson(FileName, Cpf) :-
+   readJson(FileName, File),
    removerPersonJson(File, Cpf, SaidaParcial),
    personsToJson(SaidaParcial, Saida),
+   getFilePath(FileName, FilePath),
    open(FilePath, write, Stream), 
    write(Stream, Saida), 
    close(Stream).
+
+
+% GetPersonById
+
+getPersonRecursivamente([], _, "").
+getPersonRecursivamente([H|T], Cpf, Out):-
+     (H.cpf = Cpf -> Out = H);(getPersonRecursivamente(T, Cpf, Out)).
+
+getPersonByID(FileName, Cpf, Result):-
+    readJson(FileName, File),
+    getPersonRecursivamente(File, Cpf, Result).
+
+checaExistencia(FileName, Cpf):-
+    readJson(FileName, File),
+    % atom_string(Id, IdString),
+    getPersonRecursivamente(File, Cpf, Result),
+    Result \= "".
+
+
+main:-
+  getPersonByID("doadores", "111", Person),
+  write(Person), halt.
