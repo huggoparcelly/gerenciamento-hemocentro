@@ -159,7 +159,7 @@ getAllBagsAux([]).
 getAllBagsAux([H|T]):-
 write("tipo: "), write(H.tipoSangue), nl,
 write("quantidade: "), write(H.quantidade), nl,
-getAllDoacoesAux(T).
+getAllBagsAux(T).
 
 getAllBags(FileName):-
 readJson(FileName, File),
