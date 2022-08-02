@@ -139,17 +139,29 @@ getAllDoacoes(FileName):-
 readJson(FileName, File),
 getAllDoacoesAux(File).
 
+doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, Saida) :-
+  swritef(Saida, '{"id":"%w", "doador":"%w", "tipoSangue":"%w", "quantidade":"%w", "data":"%w"}', 
+  [Id, Doador, TipoSangue, Quantidade, Data]).
+
+
+% Convertendo uma lista de objetos JSON
+doacoesToJson([], []).
+doacoesToJson([H|T], [X|Saida]) :- 
+  doacaoToJson(H.id, H.doador, H.tipoSangue, H.quantidade, H.data, X), 
+		doacoesToJson(T, Saida).
+
 %AddDoacao
 
-addDoacao(FileName, Id, Doador, TipoSangue, Quantidade, Data) :- 
-readJson(FileName, File),
-doacaoToJson(File, ListaDoacoesJSON),
-doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, DoacaoJSON),
-append(ListaDoacoesJSON, [DoacaoJSON], Saida),
-getFilePath(FileName, FilePath),
-open(FilePath, write, Stream), 
-write(Stream, Saida), 
-close(Stream).
+addDoacao(FileName, Doador, TipoSangue, Quantidade, Data) :- 
+  id(Id), incrementa_id,
+  readJson(FileName, File),
+  doacoesToJson(File, ListaDoacoesJSON),
+  doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, DoacaoJSON),
+  append(ListaDoacoesJSON, [DoacaoJSON], Saida),
+  getFilePath(FileName, FilePath),
+  open(FilePath, write, Stream), 
+  write(Stream, Saida), 
+  close(Stream).
 
 %GetBagByBloodType
 
@@ -205,4 +217,4 @@ getComprovanteRecursivamente([H|T], Cpf, Out):-
 
 checaExistenciaComprovante(Filename, Cpf):-
 readJson(FileName, File),
-getComprovanteRecursivamente(File, Cpf, Result),
+getComprovanteRecursivamente(File, Cpf, Result).
