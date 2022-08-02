@@ -178,3 +178,31 @@ getAllBagsAux(T).
 getAllBags(FileName):-
 readJson(FileName, File),
 getAllBagsAux(File).
+
+
+%GetAllComprovantes
+
+getAllComprovantesAux([]).
+getAllComprovantesAux([H|T]):-
+write("cpf: "), write(H.cpf), nl,
+write("descricao: "), write(H.descricao), nl,
+getAllComprovantesAux(T).
+
+getAllComprovantes(FileName):-
+readJson(FileName, File),
+getAllComprovantesAux(File).
+
+%GetComprovanteByCPF
+
+getComprovanteByCpf(FileName, Cpf, Result):-
+readJson(FileName, File),
+getComprovanteRecursivamente(File, Id, Result).
+
+getComprovanteRecursivamente([], _, "").
+getComprovanteRecursivamente([H|T], Cpf, Out):-
+(H.Cpf = Cpf -> Out = H); 
+(getComprovanteRecursivamente(T, Cpf, Out)).
+
+checaExistenciaComprovante(Filename, Cpf):-
+readJson(FileName, File),
+getComprovanteRecursivamente(File, Cpf, Result),
