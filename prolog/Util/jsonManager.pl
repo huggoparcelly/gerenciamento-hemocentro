@@ -79,7 +79,6 @@ removerPerson(FileName, Cpf) :-
 
 
 % GetPersonById
-
 getPersonRecursivamente([], _, "").
 getPersonRecursivamente([H|T], Cpf, Out):-
      (H.cpf = Cpf -> Out = H);(getPersonRecursivamente(T, Cpf, Out)).
@@ -94,7 +93,16 @@ checaExistencia(FileName, Cpf):-
     getPersonRecursivamente(File, Cpf, Result),
     Result \= "".
 
+% Update person
+updatePersonJson([], _, _, []).
+updatePersonJson([H|T], H.cpf, Nome, Tel, Endereco, TipoSangue, [_{cpf:H.cpf, nome:Nome, tel:Tel, endereco:Endereco, tipoSangue: TipoSangue}|T]).
+updatePersonJson([H|T], Cpf, Nome, Tel, Endereco, TipoSangue, [H|Out]) :- 
+  updatePersonJson(T, Cpf, Nome, Tel, Endereco, TipoSangue, Out).
 
-main:-
-  getPersonByID("doadores", "111", Person),
-  write(Person), halt.
+updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
+		readJson(FileName, File),
+		updatePersonJson(File, CPf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue, SaidaParcial),
+		personsToJson(SaidaParcial, Saida),
+		open(FilePath, write, Stream), 
+    write(Stream, Saida),
+    close(Stream).
