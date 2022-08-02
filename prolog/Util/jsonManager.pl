@@ -39,7 +39,7 @@ getAllPersons(FileName) :-
   getAllPersonsAux(File).
 
 
-% representação em formato String de um agente em JSON
+% representação em formato String de um person em JSON
 personToJson(Cpf, Nome, Tel, Endereco, TipoSangue, Saida) :-
   swritef(Saida, '{"cpf":"%w", "nome":"%w", "tel":"%w", "endereco":"%w", "tipoSangue":"%w"}', 
   [Cpf, Nome, Tel, Endereco, TipoSangue]).
@@ -61,4 +61,17 @@ addPerson(FileName, Cpf, Nome, Tel, Endereco, TipoSangue) :-
 		open(FilePath, write, Stream), 
     write(Stream, Saida), 
     close(Stream).
-  
+
+% Remove Person
+removerPersonJson([], _, []).
+removerPersonJson([H|T], H.cpf, T).
+removerPersonJson([H|T], Id, [H|Out]) :- 
+  removerPersonJson(T, Id, Out).
+
+removerPerson(FilePath, Cpf) :-
+   readJson(FilePath, File),
+   removerPersonJson(File, Cpf, SaidaParcial),
+   personsToJson(SaidaParcial, Saida),
+   open(FilePath, write, Stream), 
+   write(Stream, Saida), 
+   close(Stream).
