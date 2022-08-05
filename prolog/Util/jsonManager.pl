@@ -163,6 +163,19 @@ addDoacao(FileName, Doador, TipoSangue, Quantidade, Data) :-
   write(Stream, Saida), 
   close(Stream).
 
+%AddDoacaoDirecionada
+%Verificar se falta algo. Deveria ter alguma checagem de doador e receptor?
+addDoacaoDirecionada(FileName, Doador, Receptor, TipoSangue, Quantidade, Data) :- 
+  id(Id), incrementa_id,
+  readJson(FileName, File),
+  doacoesToJson(File, ListaDoacoesJSON),
+  doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, DoacaoJSON),
+  append(ListaDoacoesJSON, [DoacaoJSON], Saida),
+  getFilePath(FileName, FilePath),
+  open(FilePath, write, Stream), 
+  write(Stream, Saida), 
+  close(Stream).
+
 %GetBagByBloodType
 
 getBagRecursivamente([], _, "").

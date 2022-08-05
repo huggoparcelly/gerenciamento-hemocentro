@@ -7,6 +7,8 @@ personService:-use_module('../Util/jsonManager.pl',
     checaExistencia/2, 
     updatePerson/6]).
 
+%%Verificar as checagens que precisam ser feitas.
+
 addUser(FileName, Cpf, Nome, Tel, Endereco, TipoSangue):-
     writeln('Insira os dado do usuario: '),
     addPerson(FileName, Cpf, Nome, Tel, Endereco, TipoSangue).
