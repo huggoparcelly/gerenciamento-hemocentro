@@ -5,7 +5,7 @@
     getBagByBloodType/3,
     getBagRecursivamente/3
     ]).
-:- use_module('../src/Util/jsonManager.pl', [readJson/2]).
+:- use_module('../Util/jsonManager.pl', [readJson/2]).
 
 checaExistenciaBag(Filename, TipoSangue):-
     readJson(FileName, File),

@@ -8,7 +8,7 @@
     doacoesToJson/2,
     addDoacao/5
     ]).
-:- use_module('../src/Util/jsonManager.pl', [id/1, incrementa_id/0, getFilePath/2, readJson/2]).
+:- use_module('../Util/jsonManager.pl', [id/1, incrementa_id/0, getFilePath/2, readJson/2]).
 
 
 checaExistenciaDoacao(Filename, Id):-
