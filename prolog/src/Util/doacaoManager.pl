@@ -11,7 +11,7 @@
 :- use_module(jsonManager).
 
 
-checaExistenciaDoacao(Filename, Id):-
+checaExistenciaDoacao(FileName, Id):-
   readJson(FileName, File),
   getDoacaoRecursivamente(File, Id, Result),
   Result \= "".

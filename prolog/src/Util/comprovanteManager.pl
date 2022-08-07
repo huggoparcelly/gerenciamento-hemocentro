@@ -6,13 +6,14 @@
     getComprovanteRecursivamente/3
     ]).
 
-:- use_module('../Util/jsonManager.pl', [readJson/2]).
+:- use_module(jsonManager).
 
 
 % Checa a existencia de um comprovante no database
 checaExistenciaComprovante(FileName, Cpf) :-
     readJson(FileName, File),
-    getComprovanteRecursivamente(File, Cpf, Result).
+    getComprovanteRecursivamente(File, Cpf, Result),
+    Result \= "".
 
 %GetAllComprovantes
 getAllComprovantesAux([]).
@@ -28,7 +29,7 @@ getAllComprovantes(FileName) :-
 % Get de um comprovante pelo CPF do doador
 getComprovanteByCpf(FileName, Cpf, Result) :-
     readJson(FileName, File),
-    getComprovanteRecursivamente(File, Id, Result).
+    getComprovanteRecursivamente(File, Cpf, Result).
 
 getComprovanteRecursivamente([], _, "").
 getComprovanteRecursivamente([H|T], Cpf, Out):-

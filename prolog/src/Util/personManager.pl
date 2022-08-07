@@ -1,5 +1,4 @@
-:- module(personManager, [
-  checaExistenciaBag/2,
+:- module('personManager', [
   getAllPersonsAux/1,
   getAllPersons/1,
   getPersonByID/3,
@@ -9,10 +8,10 @@
   addPerson/6,
   removerPersonJson/3,
   updatePersonJson/4,
-  updatePerson/6
+  updatePerson/6,
+  main/0
   ]).
 :- use_module(jsonManager).
-
 
 checaExistenciaPerson(FileName, Cpf):-
   readJson(FileName, File),
@@ -92,8 +91,9 @@ updatePersonJson([H|T], Cpf, Nome, Tel, Endereco, TipoSangue, [H|Out]) :-
 
 updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
   readJson(FileName, File),
-  updatePersonJson(File, CPf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue, SaidaParcial),
+  updatePersonJson(File, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue, SaidaParcial),
   personsToJson(SaidaParcial, Saida),
+  getFilePath(FileName, FilePath),
   open(FilePath, write, Stream), 
   write(Stream, Saida),
   close(Stream).
