@@ -23,9 +23,9 @@ getAllBags(FileName):-
     readJson(FileName, File),
     getAllBagsAux(File).
 
-getBagByBloodType(FileName, Id, Result):-
+getBagByBloodType(FileName, Tipo, Result):-
     readJson(FileName, File),
-    getBagRecursivamente(File, Id, Result).
+    getBagRecursivamente(File, Tipo, Result).
 
 %GetBagByBloodType
 getBagRecursivamente([], _, "").

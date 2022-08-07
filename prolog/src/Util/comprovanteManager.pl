@@ -5,7 +5,7 @@
     getComprovanteByCpf/3,
     getComprovanteRecursivamente/3
     ]).
-% :- use_module(library(http/json)).
+
 :- use_module('../Util/jsonManager.pl', [readJson/2]).
 
 

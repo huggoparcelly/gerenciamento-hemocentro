@@ -1,4 +1,4 @@
-:- module('jsonManager', [
+:- module(jsonManager, [
   readJson/2,
   id/1,
   incrementa_id/0,
@@ -19,5 +19,5 @@ readJson(FileName, File) :-
   json_read_dict(F, File).
 
 getFilePath(FileName, FilePath) :-
-  atom_concat("../database/", FileName, Saida),
+  atom_concat("../../database/", FileName, Saida),
   atom_concat(Saida, ".json", FilePath).
