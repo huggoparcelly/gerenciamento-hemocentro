@@ -1,4 +1,5 @@
 :- module('comprovanteManager', [
+    addComprovante/3,
     checaExistenciaComprovante/2,
     getAllComprovantesAux/1,
     getAllComprovantes/1,
@@ -8,6 +9,18 @@
 
 :- use_module(jsonManager).
 
+%AddComprovante
+addComprovante(FileName, Cpf, Data):-
+id(Id), incrementa_id,
+readJson(FileName, File),
+comprovantesToJson(File, ListaComprovantesJSON),
+Msg = "Declaramos para os devidos fins e com agradecimentos que o(a) Sr(a), inscrito(a) no CPF sob o nº: " + Cpf + ", doou sangue/medula voluntariamente ao(à) Hemocentro, na data: " + Data + ".",
+comprovanteToJson(Id, Cpf, Data, Msg, ComprovanteJSON),
+append(ListaComprovantesJSON, [DoacaoJSON], Saida),
+getFilePath(FileName, FilePath),
+open(FilePath, write, Stream), 
+write(Stream, Saida), 
+close(Stream).
 
 % Checa a existencia de um comprovante no database
 checaExistenciaComprovante(FileName, Cpf) :-
