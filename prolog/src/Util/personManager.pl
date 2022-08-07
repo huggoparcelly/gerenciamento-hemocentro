@@ -11,8 +11,7 @@
   updatePerson/6,
   main/0
   ]).
-:- use_module('../Util/jsonManager.pl', [readJson/2, getFilePath/2]).
-
+:- use_module(jsonManager).
 
 checaExistenciaPerson(FileName, Cpf):-
   readJson(FileName, File),
@@ -36,14 +35,14 @@ getAllPersons(FileName) :-
 
 
 getPersonByID(FileName, Cpf, Result):-
-    readJson(FileName, File),
-    getPersonRecursivamente(File, Cpf, Result).
+  readJson(FileName, File),
+  getPersonRecursivamente(File, Cpf, Result).
 
 
 % GetPersonById
 getPersonRecursivamente([], _, "").
 getPersonRecursivamente([H|T], Cpf, Out):-
-     (H.cpf = Cpf -> Out = H);(getPersonRecursivamente(T, Cpf, Out)).
+  (H.cpf = Cpf -> Out = H);(getPersonRecursivamente(T, Cpf, Out)).
 
 % representação em formato String de um person em JSON
 personToJson(Cpf, Nome, Tel, Endereco, TipoSangue, Saida) :-
@@ -54,19 +53,19 @@ personToJson(Cpf, Nome, Tel, Endereco, TipoSangue, Saida) :-
 % Convertendo uma lista de objetos JSON
 personsToJson([], []).
 personsToJson([H|T], [X|Saida]) :- 
-    personToJson(H.cpf, H.nome, H.tel, H.endereco, H.tipoSangue, X), 
-		personsToJson(T, Saida).
+  personToJson(H.cpf, H.nome, H.tel, H.endereco, H.tipoSangue, X), 
+  personsToJson(T, Saida).
 
 % Salvar em arquivo JSON
 addPerson(FileName, Cpf, Nome, Tel, Endereco, TipoSangue) :- 
-		readJson(FileName, File),
-		personsToJson(File, ListaPersonsJSON),
-		personToJson(Cpf, Nome, Tel, Endereco, TipoSangue, PersonJSON),
-		append(ListaPersonsJSON, [PersonJSON], Saida),
-    getFilePath(FileName, FilePath),
-		open(FilePath, write, Stream), 
-    write(Stream, Saida), 
-    close(Stream).
+	readJson(FileName, File),
+  personsToJson(File, ListaPersonsJSON),
+  personToJson(Cpf, Nome, Tel, Endereco, TipoSangue, PersonJSON),
+  append(ListaPersonsJSON, [PersonJSON], Saida),
+  getFilePath(FileName, FilePath),
+  open(FilePath, write, Stream), 
+  write(Stream, Saida), 
+  close(Stream).
 
 % Remove Person
 removerPersonJson([], _, []).
@@ -75,13 +74,13 @@ removerPersonJson([H|T], Cpf, [H|Out]) :-
   removerPersonJson(T, Cpf, Out).
 
 removerPerson(FileName, Cpf) :-
-   readJson(FileName, File),
-   removerPersonJson(File, Cpf, SaidaParcial),
-   personsToJson(SaidaParcial, Saida),
-   getFilePath(FileName, FilePath),
-   open(FilePath, write, Stream), 
-   write(Stream, Saida), 
-   close(Stream).
+  readJson(FileName, File),
+  removerPersonJson(File, Cpf, SaidaParcial),
+  personsToJson(SaidaParcial, Saida),
+  getFilePath(FileName, FilePath),
+  open(FilePath, write, Stream), 
+  write(Stream, Saida), 
+  close(Stream).
 
 
 % Update person

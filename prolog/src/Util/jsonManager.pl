@@ -1,4 +1,4 @@
-:- module('jsonManager', [
+:- module(jsonManager, [
   readJson/2,
   id/1,
   incrementa_id/0,

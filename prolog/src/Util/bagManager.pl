@@ -5,9 +5,11 @@
     getBagByBloodType/3,
     getBagRecursivamente/3
     ]).
-:- use_module('../Util/jsonManager.pl', [readJson/2]).
 
-checaExistenciaBag(Filename, TipoSangue):-
+:- use_module(jsonManager).
+
+
+checaExistenciaBag(FileName, TipoSangue):-
     readJson(FileName, File),
     getBagRecursivamente(File, TipoSangue, Result),
     Result \= "".
@@ -23,12 +25,12 @@ getAllBags(FileName):-
     readJson(FileName, File),
     getAllBagsAux(File).
 
-getBagByBloodType(FileName, Id, Result):-
+getBagByBloodType(FileName, Tipo, Result):-
     readJson(FileName, File),
-    getBagRecursivamente(File, Id, Result).
+    getBagRecursivamente(File, Tipo, Result).
 
 %GetBagByBloodType
 getBagRecursivamente([], _, "").
 getBagRecursivamente([H|T], Tipo, Out):-
-    (H.Tipo = Tipo -> Out = H);
-    (getBagRecursivamente(File, Id, Out)).
+    (H.tipo = Tipo -> Out = H);
+    (getBagRecursivamente(T, Tipo, Out)).
