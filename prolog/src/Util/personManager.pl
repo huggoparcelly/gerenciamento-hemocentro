@@ -13,6 +13,7 @@
   ]).
 :- use_module(jsonManager).
 
+% TODO checar existencia dentro do getByCpf no Manager
 checaExistenciaPerson(FileName, Cpf):-
   readJson(FileName, File),
   getPersonRecursivamente(File, Cpf, Result),
@@ -34,9 +35,11 @@ getAllPersons(FileName) :-
   getAllPersonsAux(File).
 
 
-getPersonByID(FileName, Cpf, Result):-
+getPersonByID(FileName, Cpf, Saida):-
   readJson(FileName, File),
-  getPersonRecursivamente(File, Cpf, Result).
+  getPersonRecursivamente(File, Cpf, Result),
+  swritef(Saida, '{"cpf":"%w", "nome":"%w", "tel":"%w", "endereco":"%w", "tipoSangue":"%w"}', 
+  [Result.cpf, Result.nome, Result.tel, Result.endereco, Result.tipoSangue]).
 
 
 % GetPersonById
@@ -100,4 +103,5 @@ updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
 
 
 main :-
-  getAllPersons('doadores').
+  getPersonByID('doadores', "333", Person),
+  writeln(Person).
