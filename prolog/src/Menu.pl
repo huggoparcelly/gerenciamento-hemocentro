@@ -1,9 +1,8 @@
 :- module(Menu, [menuPrincipal/0, menuInput/1, menuCadastro/1, menuEdit/1, menuBuscar/1, menuRemover/1, menuListar/1]).
-:- use_module('Service/personService',[addUser/1, removeUser/2, updateUser/6, getUserByCpf/3, getAllUsers/1]).
+:- use_module('Service/personService',[addUser/1, removeUser/1, updateUser/6, getUserByCpf/1, getAllUsers/1]).
 :- use_module('Service/doacaoService', [
     createDonation/0, createDirectDonation/6,
-    getAllDonations/1, getDonationByCPF/3
-    ]).
+    getAllDonations/1, getDonationById/0]).
 :- use_module('Service/bolsaService', [getBolsas/0, getBolsaByTipo/2]).
 
 :- use_module('Util/input.pl', [input/1, inputCadastroUser/0]).
@@ -52,32 +51,32 @@ menuCadastro('7'):- menu().
 % menuEdit('2'):- updatePerson(receptores.json).
 % menuEdit('3'):- menu().
 
-% menuInput('3'):-
-%     writeln('Buscar Doador, digite 1'),
-%     writeln('Buscar Receptor, digite 2'),
-%     writeln('Buscar Doação, digite 3'),
-%     writeln('Buscar Doação de Medula, digite 4'),
-%     writeln('Voltar para Menu Principal, digite 5'),
-%     input(Input),
-%     menuBuscar(Input).
+menuInput('3'):-
+    writeln('Buscar Doador, digite 1'),
+    writeln('Buscar Receptor, digite 2'),
+    writeln('Buscar Doação, digite 3'),
+    writeln('Buscar Doação de Medula, digite 4'),
+    writeln('Voltar para Menu Principal, digite 5'),
+    input(Input),
+    menuBuscar(Input).
 
-% menuBuscar('1'):- getUserByCpf(doadores.json).
-% menuBuscar('2'):- getUserByCpf(receptores.json).
-% menuBuscar('3'):- getDonationByCPF(doacoes.json).
-% %menuBuscar('4'):- 
-% menuBuscar('5'):- menu().
+menuBuscar('1'):- getUserByCpf('doadores').
+menuBuscar('2'):- getUserByCpf('receptores').
+menuBuscar('3'):- getDonationById.
+%menuBuscar('4'):- 
+menuBuscar('5'):- menu().
 
 
-% menuInput('4'):-
-%     writeln('Remover Doador, digite 1'),
-%     writeln('Remover Receptor, digite 2'),
-%     writeln('Voltar para Menu Principal, digite 3'),
-%     input(Input),
-%     menuRemover(Input).
+menuInput('4'):-
+    writeln('Remover Doador, digite 1'),
+    writeln('Remover Receptor, digite 2'),
+    writeln('Voltar para Menu Principal, digite 3'),
+    input(Input),
+    menuRemover(Input).
 
-% menuRemover('1'):- removeUser(doadores.json).
-% menuRemover('2'):- removeUser(receptores.json).
-% menuRemover('3'):- menu().
+menuRemover('1'):- removeUser('doadores').
+menuRemover('2'):- removeUser('receptores').
+menuRemover('3'):- menu().
 
 
 menuInput('5'):-

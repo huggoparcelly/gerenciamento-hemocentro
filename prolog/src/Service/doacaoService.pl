@@ -2,16 +2,14 @@
     createDonation/1,
     createDirectDonation/6,
     getAllDonations/1,
-    getDonationByCPF/3
+    getDonationById/0
     ]).
 :- use_module('../Util/doacaoManager.pl', [addDoacao/5, addDoacaoDirecionada/6, getDoacaoById/3, getAllDoacoes/1]).
 
 :- use_module('../Util/personManager.pl', [getPersonByID/3]).
 :- use_module('../Util/bagManager.pl', [getBagByBloodType/3, updateBag/3]).
 
-:- use_module('../Util/input.pl', [inputString/1, inputCadastroDoacao/3]).
-
-% isDonor(Cpf) :- .
+:- use_module('../Util/input.pl', [input/1, inputString/1, inputCadastroDoacao/3]).
 
 today(Today) :-
     get_time(Stamp),
@@ -49,5 +47,9 @@ getAllDonations(FileName):-
     writeln('------------------'),
     getAllDoacoes(FileName).
 
-getDonationByCPF(FileName, Cpf, Result):-
-    getDoacaoById(FileName, Cpf, Result).
+getDonationById:-
+    writeln('Id'),
+    input(IdAtom),
+    atom_number(IdAtom, Id),
+    getDoacaoById('doacoes', Id, Result),
+    writeln(Result).

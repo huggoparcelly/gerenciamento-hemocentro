@@ -31,15 +31,15 @@ getAllDoacoes(FileName):-
   readJson(FileName, File),
   getAllDoacoesAux(File).
 
-
-getDoacaoById(FileName, Id, Result):-
+getDoacaoById(FileName, Id, Saida):-
   readJson(FileName, File),
-  getDoacaoRecursivamente(File, Id, Result).
+  getDoacaoRecursivamente(File, Id, Result),
+  doacaoToJson(Result.id, Result.cpf, Result.tipoSangue, Result.quantidade, Result.data, Saida).
 
 %GetDoacaoById
   getDoacaoRecursivamente([], _, "").
   getDoacaoRecursivamente([H|T], Id, Out):-
-  (H.Id = Id -> Out = H); 
+  (H.id = Id -> Out = H); 
   (getDoacaoRecursivamente(T, Id, Out)).
 
 
