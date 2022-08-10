@@ -1,7 +1,7 @@
 :- module(Menu, [menuPrincipal/0, menuInput/1, menuCadastro/1, menuEdit/1, menuBuscar/1, menuRemover/1, menuListar/1]).
 :- use_module('Service/personService',[addUser/1, removeUser/2, updateUser/6, getUserByCpf/3, getAllUsers/1]).
 :- use_module('Service/doacaoService', [
-    createDonation/1, createDirectDonation/6,
+    createDonation/0, createDirectDonation/6,
     getAllDonations/1, getDonationByCPF/3
     ]).
 :- use_module('Service/bolsaService', [getBolsas/0, getBolsaByTipo/2]).
@@ -34,7 +34,7 @@ menuInput('1'):-
 
 menuCadastro('1'):- addUser('doadores').
 menuCadastro('2'):- addUser('receptores').
-menuCadastro('3'):- createDonation('doacoes').
+menuCadastro('3'):- createDonation.
 % menuCadastro('4'):- createDirectDonation('doacoes').
 % %menuCadastro('5'):- 
 % %menuCadastro('6'):- 

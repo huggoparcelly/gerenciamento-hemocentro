@@ -7,8 +7,9 @@
 :- use_module('../Util/doacaoManager.pl', [addDoacao/5, addDoacaoDirecionada/6, getDoacaoById/3, getAllDoacoes/1]).
 
 :- use_module('../Util/personManager.pl', [getPersonByID/3]).
+:- use_module('../Util/bagManager.pl', [getBagByBloodType/3, updateBag/3]).
 
-:- use_module('../Util/input.pl', [input/1]).
+:- use_module('../Util/input.pl', [inputString/1, inputCadastroDoacao/3]).
 
 % isDonor(Cpf) :- .
 
@@ -18,21 +19,25 @@ today(Today) :-
     date_time_value(date, DateTime, Today).
 
 %Verificar as checagens que precisam ser feitas.
-createDonation(FileName) :-
-    % pega a data atual
+createDonation :-
     today(Today),
-    writeln(Today),
-    % instancia uma nova doacao
-    writeln('CPF: '),
-    input(Cpf),
-    getPersonByID('doadores', Cpf, Person),
-    writeln(Person).
+    inputCadastroDoacao(Cpf, TipoSangue, Quantidade),
+    
+    getPersonByID('doadores', Cpf, Doador),
+
+    % Verificar doador
+
     % pega as bolsas atuais desse tipo sanguineo
-    % atualiza a quantidade
+    getBagByBloodType('bolsaSangue', TipoSangue, Result),
+    atom_number(Quantidade, QntNumber),
+    Soma is QntNumber + Result.quantidade,
+    
     % update a o database de bolsas 
+    updateBag('bolsaSangue', TipoSangue, Soma), 
+    
     % adiciona a doacao no seu database
-    % addDoacao(FileName, Doador, TipoSangue, Quantidade, Data),
-    % writeln('Doação criada com sucesso!').
+    addDoacao('doacoes', Cpf, TipoSangue, Quantidade, Today),
+    writeln('Doação criada com sucesso!').
 
 % Todo addDoacaoDirecionada
 % createDirectDonation(FileName, Doador, Receptor, TipoSangue, Quantidade, Data):-
@@ -43,5 +48,5 @@ getAllDonations(FileName):-
     writeln('Lista de Doações: '),
     getAllDoacoes(FileName).
 
-getDonationByCPF(FileName, CPF, Result):-
-    getDoacaoById(FileName, CPF, Result).
+getDonationByCPF(FileName, Cpf, Result):-
+    getDoacaoById(FileName, Cpf, Result).

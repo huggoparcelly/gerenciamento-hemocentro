@@ -100,8 +100,3 @@ updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
   open(FilePath, write, Stream), 
   write(Stream, Saida),
   close(Stream).
-
-
-main :-
-  getPersonByID('doadores', "333", Person),
-  writeln(Person).
