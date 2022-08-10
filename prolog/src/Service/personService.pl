@@ -5,7 +5,8 @@
     removeUser/1, 
     updateUser/1
 ]).
-:- use_module('../Util/personManager.pl', [getPersonByID/3, getAllPersons/1, addPerson/6, removerPerson/2, checaExistencia/2, updatePerson/6]).
+:- use_module('../Util/personManager.pl', [getPersonByID/3, 
+    getAllPersons/1, addPerson/6, removerPerson/2, updatePerson/6]).
 
 :- use_module('../Util/input.pl', [inputCadastroUser/5, inputString/1]).
 

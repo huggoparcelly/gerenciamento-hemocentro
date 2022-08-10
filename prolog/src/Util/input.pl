@@ -1,4 +1,4 @@
-:- module('input',[input/1]).
+:- module('input',[input/1, inputString/1, inputCadastroUser/5, inputCadastroDoacao/3]).
 
 input(Input) :-
     read_line_to_codes(user_input, X1),

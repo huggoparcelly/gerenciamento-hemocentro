@@ -1,10 +1,10 @@
 :- module('doacaoService', [
-    createDonation/1,
-    createDirectDonation/6,
+    createDonation/0,
+    createDirectDonation/0,
     getAllDonations/1,
     getDonationById/0
     ]).
-:- use_module('../Util/doacaoManager.pl', [addDoacao/5, addDoacaoDirecionada/6, getDoacaoById/3, getAllDoacoes/1]).
+:- use_module('../Util/doacaoManager.pl', [addDoacao/5, addDoacaoDirecionada/0, getDoacaoById/3, getAllDoacoes/1]).
 
 :- use_module('../Util/personManager.pl', [getPersonByID/3]).
 :- use_module('../Util/bagManager.pl', [getBagByBloodType/3, updateBag/3]).
@@ -38,9 +38,9 @@ createDonation :-
     writeln('Doação criada com sucesso!').
 
 % Todo addDoacaoDirecionada
-% createDirectDonation(FileName, Doador, Receptor, TipoSangue, Quantidade, Data):-
-%     addDoacaoDirecionada(FileName, Doador, Receptor, TipoSangue, Quantidade, Data),
-%     writeln('Doação criada com sucesso!').
+createDirectDonation:-
+    % addDoacaoDirecionada(FileName, Doador, Receptor, TipoSangue, Quantidade, Data),
+    writeln('Doação criada com sucesso!').
 
 getAllDonations(FileName):-
     writeln('Lista de Doações: '),

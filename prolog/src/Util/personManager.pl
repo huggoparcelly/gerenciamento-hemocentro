@@ -6,10 +6,9 @@
   personToJson/6,
   personsToJson/2,
   addPerson/6,
-  removerPersonJson/3,
+  removerPerson/2,
   updatePersonJson/4,
-  updatePerson/6,
-  main/0
+  updatePerson/6
   ]).
 :- use_module(jsonManager).
 
