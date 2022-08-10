@@ -11,15 +11,15 @@ inputString(InputString) :-
 
 inputCadastroUser(Cpf, Nome, Tel, Endereco, TipoSangue) :-
     writeln('CPF: '),
-    input(Cpf),
+    inputString(Cpf),
     writeln('Nome: '),
-    input(Nome),
+    inputString(Nome),
     writeln('Telefone: '),
-    input(Tel),
+    inputString(Tel),
     writeln('Endereco: '),
-    input(Endereco),
+    inputString(Endereco),
     writeln('Tipo Sanguineo: '),
-    input(TipoSangue).
+    inputString(TipoSangue).
 
 
 inputCadastroDoacao(Cpf, TipoSangue, Quantidade) :-

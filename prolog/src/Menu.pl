@@ -1,5 +1,5 @@
 :- module(Menu, [menuPrincipal/0, menuInput/1, menuCadastro/1, menuEdit/1, menuBuscar/1, menuRemover/1, menuListar/1]).
-:- use_module('Service/personService',[addUser/1, removeUser/1, updateUser/6, getUserByCpf/1, getAllUsers/1]).
+:- use_module('Service/personService',[addUser/1, removeUser/1, updateUser/1, getUserByCpf/1, getAllUsers/1]).
 :- use_module('Service/doacaoService', [
     createDonation/0, createDirectDonation/6,
     getAllDonations/1, getDonationById/0]).
@@ -40,16 +40,16 @@ menuCadastro('3'):- createDonation.
 menuCadastro('7'):- menu().
 
 
-% menuInput('2'):-
-%     writeln('Editar Doador, digite 1'),
-%     writeln('Editar Receptor, digite 2'),
-%     writeln('Voltar para Menu Principal, digite 3'),
-%     input(Input),
-%     menuEdit(Input)
+menuInput('2'):-
+    writeln('Editar Doador, digite 1'),
+    writeln('Editar Receptor, digite 2'),
+    writeln('Voltar para Menu Principal, digite 3'),
+    input(Input),
+    menuEdit(Input).
 
-% menuEdit('1'):- updatePerson(doadores.json).
-% menuEdit('2'):- updatePerson(receptores.json).
-% menuEdit('3'):- menu().
+menuEdit('1'):- updateUser('doadores').
+menuEdit('2'):- updateUser('receptores').
+menuEdit('3'):- menu().
 
 menuInput('3'):-
     writeln('Buscar Doador, digite 1'),

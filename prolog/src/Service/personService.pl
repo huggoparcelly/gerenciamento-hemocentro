@@ -3,7 +3,7 @@
     getAllUsers/1, 
     addUser/1, 
     removeUser/1, 
-    updateUser/6
+    updateUser/1
 ]).
 :- use_module('../Util/personManager.pl', [getPersonByID/3, getAllPersons/1, addPerson/6, removerPerson/2, checaExistencia/2, updatePerson/6]).
 
@@ -33,7 +33,8 @@ getAllUsers(FileName) :-
     writeln('Lista dos usuários: '),
     getAllPersons(FileName).
 
-updateUser(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
+updateUser(FileName) :-
     writeln('Digite os novos dados do usuário: '),
+    inputCadastroUser(Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue),
     updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue),
     writeln('Usuário atualizado com sucesso!').
