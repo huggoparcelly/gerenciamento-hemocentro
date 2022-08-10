@@ -46,6 +46,7 @@ createDonation :-
 
 getAllDonations(FileName):-
     writeln('Lista de Doações: '),
+    writeln('------------------'),
     getAllDoacoes(FileName).
 
 getDonationByCPF(FileName, Cpf, Result):-

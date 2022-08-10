@@ -21,9 +21,10 @@ getAllDoacoesAux([]).
 getAllDoacoesAux([H|T]):-
   write("id: "), write(H.id), nl,
   write("cpf: "), write(H.cpf), nl,
-  write("tipo: "), write(H.tipo), nl,
+  write("tipoSangue: "), write(H.tipoSangue), nl,
   write("quantidade: "), write(H.quantidade), nl,
   write("data: "), write(H.data), nl,
+  writeln('------------------'),
   getAllDoacoesAux(T).
 
 getAllDoacoes(FileName):-

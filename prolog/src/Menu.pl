@@ -80,22 +80,22 @@ menuCadastro('7'):- menu().
 % menuRemover('3'):- menu().
 
 
-% menuInput('5'):-
-%     writeln('Listar Doadores, digite 1'),
-%     writeln('Listar Receptores, digite 2'),
-%     writeln('Listar Doações, digite 3'),
-%     writeln('Listar Doações de Medula, digite 4'),
-%     writeln('Listar Comprovante de Doações, digite 5'),
-%     writeln('Voltar para Menu Principal, digite 6'),
-%     input(Input),
-%     menuListar(Input).
+menuInput('5'):-
+    writeln('Listar Doadores, digite 1'),
+    writeln('Listar Receptores, digite 2'),
+    writeln('Listar Doações, digite 3'),
+    writeln('Listar Doações de Medula, digite 4'),
+    writeln('Listar Comprovante de Doações, digite 5'),
+    writeln('Voltar para Menu Principal, digite 6'),
+    input(Input),
+    menuListar(Input).
 
-% menuListar('1'):- getAllUsers(doadores.json).
-% menuListar('2'):- getAllUsers(receptores.json).
-% menuListar('3'):- getAllDonations(doacoes.json).
-% %menuListar('4'):- 
-% %menuListar('5'):- 
-% mennuListar('6'):- menu().
+menuListar('1'):- getAllUsers('doadores').
+menuListar('2'):- getAllUsers('receptores').
+menuListar('3'):- getAllDonations('doacoes').
+%menuListar('4'):- 
+%menuListar('5'):- 
+mennuListar('6'):- menu().
 
 
 menuInput('6'):- halt.
