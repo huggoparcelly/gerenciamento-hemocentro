@@ -34,7 +34,8 @@ getAllDoacoes(FileName):-
 getDoacaoById(FileName, Id, Saida):-
   readJson(FileName, File),
   getDoacaoRecursivamente(File, Id, Result),
-  doacaoToJson(Result.id, Result.cpf, Result.tipoSangue, Result.quantidade, Result.data, Saida).
+  doacoesToJson(Result, Saida).
+  % doacaoToJson(Result.id, Result.cpf, Result.tipoSangue, Result.quantidade, Result.data, Saida).
 
 %GetDoacaoById
   getDoacaoRecursivamente([], _, "").

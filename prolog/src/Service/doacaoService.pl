@@ -1,14 +1,12 @@
 :- module('doacaoService', [
     createDonation/0,
     createDirectDonation/0,
-    getAllDonations/1,
+    getAllDonations/0,
     getDonationById/0
     ]).
 :- use_module('../Util/doacaoManager.pl', [addDoacao/5, addDoacaoDirecionada/0, getDoacaoById/3, getAllDoacoes/1]).
-
 :- use_module('../Util/personManager.pl', [getPersonByID/3]).
 :- use_module('../Util/bagManager.pl', [getBagByBloodType/3, updateBag/3]).
-
 :- use_module('../Util/input.pl', [input/1, inputString/1, inputCadastroDoacao/3]).
 
 today(Today) :-
@@ -42,10 +40,10 @@ createDirectDonation:-
     % addDoacaoDirecionada(FileName, Doador, Receptor, TipoSangue, Quantidade, Data),
     writeln('Doação criada com sucesso!').
 
-getAllDonations(FileName):-
+getAllDonations :-
     writeln('Lista de Doações: '),
     writeln('------------------'),
-    getAllDoacoes(FileName).
+    getAllDoacoes('doacoes').
 
 getDonationById:-
     writeln('Id'),
