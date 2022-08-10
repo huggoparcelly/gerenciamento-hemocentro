@@ -1,5 +1,5 @@
 :- module('bagManager', [
-    checaExistenciaBag/2,
+    checaExistenciaBag/1,
     getAllBagsAux/1,
     getAllBags/1,
     getBagByBloodType/3,
@@ -10,8 +10,8 @@
 :- use_module(jsonManager).
 
 
-checaExistenciaBag(FileName, TipoSangue):-
-    readJson(FileName, File),
+checaExistenciaBag(TipoSangue):-
+    readJson('bolsaSangue', File),
     getBagRecursivamente(File, TipoSangue, Result),
     Result \= "".
 

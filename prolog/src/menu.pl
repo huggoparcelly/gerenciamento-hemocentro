@@ -22,10 +22,10 @@ subMenu :-
     writeln('\t[ 6 ] SAIR'),
     writeln('> Opção: '),
     input(Input),
+    clear,
     menuInput(Input).
 
 menuInput('1') :-
-    clear,
     writeln('-----------------'),
     writeln('>>> CADASTRAR <<<'),
     writeln('-----------------'),
@@ -38,10 +38,10 @@ menuInput('1') :-
     writeln('7 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
+    clear,
     menuCadastro(Input).
 
 menuInput('2') :-
-    clear,
     writeln('--------------'),
     writeln('>>> EDITAR <<<'),
     writeln('--------------'),
@@ -50,10 +50,10 @@ menuInput('2') :-
     writeln('3 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
+    clear,
     menuEdit(Input).
 
 menuInput('3') :-
-    clear,
     writeln('--------------'),
     writeln('>>> BUSCAR <<<'),
     writeln('--------------'),
@@ -64,10 +64,10 @@ menuInput('3') :-
     writeln('5 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
+    clear,
     menuBuscar(Input).
 
 menuInput('4') :-
-    clear,
     writeln('---------------'),
     writeln('>>> REMOVER <<<'),
     writeln('---------------'),
@@ -76,10 +76,10 @@ menuInput('4') :-
     writeln('3 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
+    clear,
     menuRemover(Input).
 
 menuInput('5') :-
-    clear,
     writeln('--------------'),
     writeln('>>> LISTAR <<<'),
     writeln('--------------'),
@@ -92,6 +92,7 @@ menuInput('5') :-
     writeln('7 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
+    clear,
     menuListar(Input).
 
 menuInput('6'):- halt.

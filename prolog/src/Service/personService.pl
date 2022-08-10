@@ -1,16 +1,17 @@
 :- module(personService, [
+    ehDoador/1,
     getUserByCpf/1, 
     getAllUsers/1, 
     addUser/1, 
     removeUser/1, 
     updateUser/1
 ]).
-:- use_module('../Util/personManager.pl', [getPersonByID/3, 
-    getAllPersons/1, addPerson/6, removerPerson/2, updatePerson/6]).
-
-:- use_module('../Util/input.pl', [inputCadastroUser/5, inputString/1]).
+:- use_module('../Util/personManager.pl').
+:- use_module('../Util/input.pl').
 
 % Verificar as checagens que precisam ser feitas.
+
+ehDoador(Cpf) :- checaExistenciaPerson('doadores', Cpf).
 
 addUser(FileName) :-
     writeln('Insira os dados do usuario: '),

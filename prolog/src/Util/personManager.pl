@@ -1,6 +1,8 @@
 :- module('personManager', [
+  checaExistenciaPerson/2,
   getAllPersonsAux/1,
   getAllPersons/1,
+  getPersonByCpf/3,
   getPersonByID/3,
   getPersonRecursivamente/3,
   personToJson/6,
@@ -33,12 +35,17 @@ getAllPersons(FileName) :-
   readJson(FileName, File),
   getAllPersonsAux(File).
 
+getPersonByCpf(FileName, Cpf, Result):-
+  readJson(FileName, File),
+  getPersonRecursivamente(File, Cpf, Result).
+
 
 getPersonByID(FileName, Cpf, Saida):-
   readJson(FileName, File),
   getPersonRecursivamente(File, Cpf, Result),
   swritef(Saida, '{"cpf":"%w", "nome":"%w", "tel":"%w", "endereco":"%w", "tipoSangue":"%w"}', 
   [Result.cpf, Result.nome, Result.tel, Result.endereco, Result.tipoSangue]).
+
 
 
 % GetPersonById

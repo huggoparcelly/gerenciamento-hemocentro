@@ -1,4 +1,4 @@
-:- module('input',[input/1, inputString/1, inputCadastroUser/5, inputCadastroDoacao/3]).
+:- module('input',[input/1, inputString/1, inputCadastroUser/5, inputCadastroDoacao/2]).
 
 input(Input) :-
     read_line_to_codes(user_input, X1),
@@ -10,22 +10,20 @@ inputString(InputString) :-
   atom_string(Input, InputString).
 
 inputCadastroUser(Cpf, Nome, Tel, Endereco, TipoSangue) :-
-    writeln('CPF: '),
-    inputString(Cpf),
-    writeln('Nome: '),
-    inputString(Nome),
-    writeln('Telefone: '),
-    inputString(Tel),
-    writeln('Endereco: '),
-    inputString(Endereco),
-    writeln('Tipo Sanguineo: '),
-    inputString(TipoSangue).
-
-
-inputCadastroDoacao(Cpf, TipoSangue, Quantidade) :-
   writeln('CPF: '),
   inputString(Cpf),
+  writeln('Nome: '),
+  inputString(Nome),
+  writeln('Telefone: '),
+  inputString(Tel),
+  writeln('Endereco: '),
+  inputString(Endereco),
   writeln('Tipo Sanguineo: '),
-  inputString(TipoSangue),
-  writeln('Quantidade: '),
+  inputString(TipoSangue).
+
+
+inputCadastroDoacao(Cpf, Quantidade) :-
+  writeln('- CPF: '),
+  inputString(Cpf),
+  writeln('- Quantidade: '),
   input(Quantidade).
