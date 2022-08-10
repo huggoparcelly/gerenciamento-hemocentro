@@ -4,8 +4,11 @@
 :- use_module('Service/bolsaService', [getBolsas/0, getBolsaByTipo/2]).
 :- use_module('Util/input.pl', [input/1]).
 %inserir restante dos services
+:- encoding(utf8).
 
-menuPrincipal :- writeln('\n\nBem vindo ao Gerenciamento de Hemocentro! \n'), subMenu.
+clear :- writeln('\e[H\e[2J').
+
+menuPrincipal :- clear, writeln('\n\nBem vindo ao Gerenciamento de Hemocentro! \n'), subMenu.
 
 subMenu :-
     writeln('--------------------------------'),
@@ -18,10 +21,11 @@ subMenu :-
     writeln('\t[ 5 ] Listar'),
     writeln('\t[ 6 ] SAIR'),
     writeln('> Opção: '),
-    input(Input), nl,
+    input(Input),
     menuInput(Input).
 
 menuInput('1') :-
+    clear,
     writeln('-----------------'),
     writeln('>>> CADASTRAR <<<'),
     writeln('-----------------'),
@@ -33,10 +37,11 @@ menuInput('1') :-
     writeln('6 - Coleta de Sangue'),
     writeln('7 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
-    input(Input), nl,
+    input(Input),
     menuCadastro(Input).
 
 menuInput('2') :-
+    clear,
     writeln('--------------'),
     writeln('>>> EDITAR <<<'),
     writeln('--------------'),
@@ -44,10 +49,11 @@ menuInput('2') :-
     writeln('2 - Receptor'),
     writeln('3 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
-    input(Input), nl,
+    input(Input),
     menuEdit(Input).
 
 menuInput('3') :-
+    clear,
     writeln('--------------'),
     writeln('>>> BUSCAR <<<'),
     writeln('--------------'),
@@ -57,10 +63,11 @@ menuInput('3') :-
     writeln('4 - Doação de Medula'),
     writeln('5 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
-    input(Input), nl,
+    input(Input),
     menuBuscar(Input).
 
 menuInput('4') :-
+    clear,
     writeln('---------------'),
     writeln('>>> REMOVER <<<'),
     writeln('---------------'),
@@ -68,10 +75,11 @@ menuInput('4') :-
     writeln('2 - Receptor'),
     writeln('3 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
-    input(Input), nl,
+    input(Input),
     menuRemover(Input).
 
 menuInput('5') :-
+    clear,
     writeln('--------------'),
     writeln('>>> LISTAR <<<'),
     writeln('--------------'),
@@ -83,7 +91,7 @@ menuInput('5') :-
     writeln('6 - Comprovante de Doações'),
     writeln('7 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
-    input(Input), nl,
+    input(Input),
     menuListar(Input).
 
 menuInput('6'):- halt.

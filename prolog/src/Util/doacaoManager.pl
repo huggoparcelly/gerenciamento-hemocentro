@@ -9,7 +9,7 @@
     addDoacao/5
     ]).
 :- use_module(jsonManager).
-
+:- encoding(utf8).
 
 checaExistenciaDoacao(FileName, Id):-
   readJson(FileName, File),

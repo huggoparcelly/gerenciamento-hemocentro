@@ -8,6 +8,7 @@
 :- use_module('../Util/personManager.pl', [getPersonByID/3]).
 :- use_module('../Util/bagManager.pl', [getBagByBloodType/3, updateBag/3]).
 :- use_module('../Util/input.pl', [input/1, inputString/1, inputCadastroDoacao/3]).
+:- encoding(utf8).
 
 today(Today) :-
     get_time(Stamp),
