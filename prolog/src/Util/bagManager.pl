@@ -4,7 +4,8 @@
     getAllBags/1,
     getBagByBloodType/3,
     getBagRecursivamente/3,
-    updateBag/3
+    updateBag/3,
+    retiraSangue/2
     ]).
 
 :- use_module(jsonManager).
@@ -60,3 +61,16 @@ bagsToJson([H|T], [X|Saida]) :-
 bagToJson(TipoSangue, Quantidade, Saida) :-
     swritef(Saida, '{"tipoSangue":"%w", "quantidade": %w}', 
     [TipoSangue, Quantidade]).
+
+retiraSangue(TipoSangue, QtdNumber) :-
+    getBagByBloodType('bolsaSangue', TipoSangue, Result),
+    AuxQtd is Result.quantidade + 0,
+    AuxTipo = Result.tipoSangue,
+    
+    AuxQtd>=QtdNumber,
+    (QtdAtt is Result.quantidade - QtdNumber,
+    updateBag('bolsaSangue', AuxTipo, QtdAtt),
+    
+    write("Bolsas contendo "), write(QtdNumber), writeln(' litro(s) de sangue foram entregues!'));
+    writeln('Não temos estoque para a quantidade desejada.').
+    
