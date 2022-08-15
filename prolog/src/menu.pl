@@ -104,7 +104,7 @@ menuInput(_) :- opcaoInvalida, menuPrincipal.
 menuCadastro('1'):- addUser('doadores'), subMenu.
 menuCadastro('2'):- addUser('receptores'), subMenu.
 menuCadastro('3'):- createDonation, subMenu.
-% menuCadastro('4'):- createDirectDonation.
+menuCadastro('4'):- createDirectDonation, subMenu.
 % %menuCadastro('5'):- 
 % %menuCadastro('6'):- 
 menuCadastro('7'):- subMenu.

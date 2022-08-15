@@ -1,5 +1,6 @@
 :- module(personService, [
     ehDoador/1,
+    ehReceptor/1,
     getUserByCpf/1, 
     getAllUsers/1, 
     addUser/1, 
@@ -12,6 +13,8 @@
 % Verificar as checagens que precisam ser feitas.
 
 ehDoador(Cpf) :- checaExistenciaPerson('doadores', Cpf).
+
+ehReceptor(Cpf) :- checaExistenciaPerson('receptores', Cpf).
 
 addUser(FileName) :-
     writeln('Insira os dados do usuario: '),

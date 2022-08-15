@@ -1,4 +1,4 @@
-:- module('input',[input/1, inputString/1, inputCadastroUser/5, inputCadastroDoacao/2]).
+:- module('input',[input/1, inputString/1, inputCadastroUser/5, inputCadastroDoacao/2, inputCadastroDoacaoDirecionada/3]).
 
 input(Input) :-
     read_line_to_codes(user_input, X1),
@@ -25,5 +25,14 @@ inputCadastroUser(Cpf, Nome, Tel, Endereco, TipoSangue) :-
 inputCadastroDoacao(Cpf, Quantidade) :-
   writeln('- CPF: '),
   inputString(Cpf),
+  writeln('- Quantidade: '),
+  input(Quantidade).
+
+
+inputCadastroDoacaoDirecionada(CpfDoador, CpfReceptor, Quantidade) :-
+  writeln('- CPF do Doador: '),
+  inputString(CpfDoador),
+  writeln('- CPF do Receptor: '),
+  inputString(CpfReceptor),
   writeln('- Quantidade: '),
   input(Quantidade).
