@@ -1,11 +1,13 @@
 :- module(bolsaService, [
-    getBolsas/0,
-    getBolsaByTipo/2
-    ]).
+  ehTipoValido/1,
+  getBolsas/0,
+  getBolsaByTipo/2
+]).
 :- use_module('../Util/bagManager.pl').
 
 
 % checkIfTipoExists
+ehTipoValido(TipoSangue) :- checaExistenciaBag(TipoSangue).
 
 % Retorna todas as bolsas de sangue registradas no sistema
 getBolsas :-

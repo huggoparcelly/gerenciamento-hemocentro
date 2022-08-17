@@ -9,7 +9,7 @@
     addDoacao/5
     ]).
 :- use_module(jsonManager).
-
+:- encoding(utf8).
 
 checaExistenciaDoacao(FileName, Id):-
   readJson(FileName, File),
@@ -20,45 +20,47 @@ checaExistenciaDoacao(FileName, Id):-
 getAllDoacoesAux([]).
 getAllDoacoesAux([H|T]):-
   write("id: "), write(H.id), nl,
-  write("doador: "), write(H.doador), nl,
-  write("tipo: "), write(H.tipo), nl,
+  write("cpf: "), write(H.cpf), nl,
+  write("tipoSangue: "), write(H.tipoSangue), nl,
   write("quantidade: "), write(H.quantidade), nl,
   write("data: "), write(H.data), nl,
+  writeln('------------------'),
   getAllDoacoesAux(T).
 
 getAllDoacoes(FileName):-
   readJson(FileName, File),
   getAllDoacoesAux(File).
 
-
-getDoacaoById(FileName, Id, Result):-
+getDoacaoById(FileName, Id, Saida):-
   readJson(FileName, File),
-  getDoacaoRecursivamente(File, Id, Result).
+  getDoacaoRecursivamente(File, Id, Result),
+  doacoesToJson(Result, Saida).
+  % doacaoToJson(Result.id, Result.cpf, Result.tipoSangue, Result.quantidade, Result.data, Saida).
 
 %GetDoacaoById
   getDoacaoRecursivamente([], _, "").
   getDoacaoRecursivamente([H|T], Id, Out):-
-  (H.Id = Id -> Out = H); 
+  (H.id = Id -> Out = H); 
   (getDoacaoRecursivamente(T, Id, Out)).
 
 
-doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, Saida) :-
-  swritef(Saida, '{"id":"%w", "doador":"%w", "tipoSangue":"%w", "quantidade":"%w", "data":"%w"}', 
-  [Id, Doador, TipoSangue, Quantidade, Data]).
+doacaoToJson(Id, Cpf, TipoSangue, Quantidade, Data, Saida) :-
+  swritef(Saida, '{"id":%w, "cpf":"%w", "tipoSangue":"%w", "quantidade":"%w", "data":"%w"}', 
+  [Id, Cpf, TipoSangue, Quantidade, Data]).
 
 
 % Convertendo uma lista de objetos JSON
 doacoesToJson([], []).
 doacoesToJson([H|T], [X|Saida]) :- 
-  doacaoToJson(H.id, H.doador, H.tipoSangue, H.quantidade, H.data, X), 
+  doacaoToJson(H.id, H.cpf, H.tipoSangue, H.quantidade, H.data, X), 
   doacoesToJson(T, Saida).
 
 %AddDoacao
-addDoacao(FileName, Doador, TipoSangue, Quantidade, Data) :- 
+addDoacao(FileName, Cpf, TipoSangue, Quantidade, Data) :- 
   id(Id), incrementa_id,
   readJson(FileName, File),
   doacoesToJson(File, ListaDoacoesJSON),
-  doacaoToJson(Id, Doador, TipoSangue, Quantidade, Data, DoacaoJSON),
+  doacaoToJson(Id, Cpf, TipoSangue, Quantidade, Data, DoacaoJSON),
   append(ListaDoacoesJSON, [DoacaoJSON], Saida),
   getFilePath(FileName, FilePath),
   open(FilePath, write, Stream), 

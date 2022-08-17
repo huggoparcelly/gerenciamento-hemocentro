@@ -1,18 +1,20 @@
 :- module('personManager', [
+  checaExistenciaPerson/2,
   getAllPersonsAux/1,
   getAllPersons/1,
+  getPersonByCpf/3,
   getPersonByID/3,
   getPersonRecursivamente/3,
   personToJson/6,
   personsToJson/2,
   addPerson/6,
-  removerPersonJson/3,
+  removerPerson/2,
   updatePersonJson/4,
-  updatePerson/6,
-  main/0
+  updatePerson/6
   ]).
 :- use_module(jsonManager).
 
+% TODO checar existencia dentro do getByCpf no Manager
 checaExistenciaPerson(FileName, Cpf):-
   readJson(FileName, File),
   getPersonRecursivamente(File, Cpf, Result),
@@ -33,10 +35,17 @@ getAllPersons(FileName) :-
   readJson(FileName, File),
   getAllPersonsAux(File).
 
-
-getPersonByID(FileName, Cpf, Result):-
+getPersonByCpf(FileName, Cpf, Result):-
   readJson(FileName, File),
   getPersonRecursivamente(File, Cpf, Result).
+
+
+getPersonByID(FileName, Cpf, Saida):-
+  readJson(FileName, File),
+  getPersonRecursivamente(File, Cpf, Result),
+  swritef(Saida, '{"cpf":"%w", "nome":"%w", "tel":"%w", "endereco":"%w", "tipoSangue":"%w"}', 
+  [Result.cpf, Result.nome, Result.tel, Result.endereco, Result.tipoSangue]).
+
 
 
 % GetPersonById
@@ -97,7 +106,3 @@ updatePerson(FileName, Cpf, NovoNome, NovoTel, NovoEndereco, NovoTipoSangue) :-
   open(FilePath, write, Stream), 
   write(Stream, Saida),
   close(Stream).
-
-
-main :-
-  getAllPersons('doadores').
