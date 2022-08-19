@@ -11,6 +11,7 @@
 :- use_module('../Service/personService.pl').
 :- use_module('../Service/bolsaService.pl').
 :- use_module('../Util/input.pl', [input/1, inputString/1, inputCadastroDoacao/2, inputCadastroDoacaoDirecionada/3]).
+:- use_module('../Service/comprovanteService.pl').
 
 today(Today) :-
     get_time(Stamp),
@@ -22,7 +23,7 @@ createDonation :-
     today(Today),
     inputCadastroDoacao(Cpf, Quantidade),
     manageDonation(Cpf, Quantidade, Today).
-    % CREATE COMPROVANTE DE DOACAO
+    
 
 manageDonation(Cpf, Quantidade, Today) :-
     ehDoador(Cpf) -> (
@@ -35,7 +36,8 @@ manageDonation(Cpf, Quantidade, Today) :-
         updateBag('bolsaSangue', Doador.tipoSangue, QtdAtt), 
 
         addDoacao('doacoes', Cpf, Doador.tipoSangue, Quantidade, Today),
-        writeln('>>> Doação criada com sucesso! <<<')
+        writeln('>>> Doação criada com sucesso! <<<'),
+        createComprovante("comprovanteDoacao", Cpf, Today)
     );
     writeln('\n>>> CPF não consta no cadastro de doadores.\n').
 
@@ -45,24 +47,29 @@ createDirectDonation :-
     inputCadastroDoacaoDirecionada(CpfDoador, CpfReceptor, Quantidade),
     manageDirectDonation(CpfDoador, CpfReceptor, Quantidade, Today).
     
-    % CREATE COMPROVANTE DE DOACAO DIRECIONADA
 
 manageDirectDonation(CpfDoador, CpfReceptor, Quantidade, Today) :-
     atom_number(Quantidade, QtdNumber),
     
     ehReceptor(CpfReceptor) -> (
-        getPersonByCpf('receptores', CpfReceptor, ResultReceptor),
-        getPersonByCpf('doadores', CpfDoador, ResultDoador),
-        ResultDoador.tipoSangue == ResultReceptor.tipoSangue -> (
-                manageDonation(CpfDoador, Quantidade, Today),
-                retiraSangue(ResultReceptor.tipoSangue, QtdNumber)
-        );
-        getBagByBloodType('bolsaSangue', ResultReceptor.tipoSangue, ResultBolsas),
-        AuxQtd is ResultBolsas.quantidade + 0,
-        AuxQtd >= QtdNumber -> (
+        ehDoador(CpfDoador) -> (
+            getPersonByCpf('receptores', CpfReceptor, ResultReceptor),
+            getPersonByCpf('doadores', CpfDoador, ResultDoador),
+            ResultDoador.tipoSangue == ResultReceptor.tipoSangue -> (
+                    manageDonation(CpfDoador, Quantidade, Today),
+                    retiraSangue(ResultReceptor.tipoSangue, QtdNumber)
+            );
+            writeln("Tipo doador eh diferente do receptor"),
+            getPersonByCpf('receptores', CpfReceptor, ResultReceptor),
+            getBagByBloodType('bolsaSangue', ResultReceptor.tipoSangue, ResultBolsas),
+            AuxQtd is ResultBolsas.quantidade + 0,
             manageDonation(CpfDoador, Quantidade, Today),
-            retiraSangue(ResultReceptor.tipoSangue, QtdNumber)
-        )
+            AuxQtd >= QtdNumber -> (
+                retiraSangue(ResultReceptor.tipoSangue, QtdNumber)
+            );
+            writeln('\n>>> Sua doação foi efetuada, entretanto não é compativel com o receptor\n')
+        );
+        writeln('\n>>> CPF não consta no cadastro de doadores.\n')
     );
     writeln('\n>>> CPF não consta no cadastro de Receptores\n').
 

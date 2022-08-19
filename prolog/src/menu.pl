@@ -2,10 +2,12 @@
 :- use_module('Service/personService',[addUser/1, removeUser/1, updateUser/1, getUserByCpf/1, getAllUsers/1]).
 :- use_module('Service/doacaoService', [createDonation/0, createDirectDonation/0, getAllDonations/0, getDonationById/0]).
 :- use_module('Service/bolsaService', [getBolsas/0, getBolsaByTipo/2]).
-:- use_module('Service/comprovanteService', [getAllComprov/1, getComprovByCpf/2]).
+:- use_module('Service/comprovanteService', [getAllComprov/1, getComprovByCpf/1]).
 :- use_module('Util/input.pl', [input/1]).
 :- use_module('Service/recepcaoService', [createReception/0]).
-%inserir restante dos services
+:- use_module('Service/medulaService', [createDonationMedula/0, buscarDonationMedula/0, getAllDonationsMedula/0]).
+
+
 :- encoding(utf8).
 
 clear :- writeln('\e[H\e[2J').
@@ -67,7 +69,7 @@ menuInput('3') :-
     writeln('6 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
-    clear,
+    %clear,
     menuBuscar(Input).
 
 menuInput('4') :-
@@ -89,10 +91,9 @@ menuInput('5') :-
     writeln('1 - Doadores'),
     writeln('2 - Receptores'),
     writeln('3 - Doações'),
-    writeln('4 - Doações Direcionadas'),
-    writeln('5 - Doações de Medula'),
-    writeln('6 - Comprovante de Doações'),
-    writeln('7 - Voltar para o Menu Principal'),
+    writeln('4 - Doações de Medula'),
+    writeln('5 - Comprovante de Doações'),
+    writeln('6 - Voltar para o Menu Principal'),
     writeln('> Opção: '),
     input(Input),
     clear,
@@ -106,7 +107,7 @@ menuCadastro('1'):- addUser('doadores'), subMenu.
 menuCadastro('2'):- addUser('receptores'), subMenu.
 menuCadastro('3'):- createDonation, subMenu.
 menuCadastro('4'):- createDirectDonation, subMenu.
-% %menuCadastro('5'):- 
+menuCadastro('5'):- createDonationMedula, subMenu.
 menuCadastro('6'):- createReception, subMenu.
 menuCadastro('7'):- subMenu.
 menuCadastro(_) :- opcaoInvalida, menuInput('1').
@@ -121,8 +122,8 @@ menuEdit(_) :- opcaoInvalida, menuInput('2').
 menuBuscar('1'):- getUserByCpf('doadores'), subMenu.
 menuBuscar('2'):- getUserByCpf('receptores'), subMenu.
 menuBuscar('3'):- getDonationById, subMenu.
-%menuBuscar('4'):- 
-menuBuscar('5'):- getComprovByCpf('comprovantes'), subMenu.
+menuBuscar('4'):- buscarDonationMedula, subMenu.
+menuBuscar('5'):- getComprovByCpf('comprovanteDoacao'), subMenu.
 menuBuscar('6'):- subMenu.
 menuBuscar(_) :- opcaoInvalida, menuInput('3').
 
@@ -136,13 +137,12 @@ menuRemover(_) :- opcaoInvalida, menuInput('4').
 menuListar('1'):- getAllUsers('doadores'), subMenu.
 menuListar('2'):- getAllUsers('receptores'), subMenu.
 menuListar('3'):- getAllDonations, subMenu.
-menuListar('4'):- getAllComprov('comprovantes'), subMenu. 
-%menuListar('5'):- 
-%menuListar('6'):- 
-menuListar('7'):- subMenu.
+menuListar('4'):- getAllDonationsMedula, subMenu.
+menuListar('5'):- getAllComprov('comprovanteDoacao'), subMenu. 
+menuListar('6'):- subMenu.
 menuListar(_) :- opcaoInvalida, menuInput('5').
 
 
 opcaoInvalida :- 
-    clear,
+    %clear,
     writeln('Opção inválida. Tente novamente!').

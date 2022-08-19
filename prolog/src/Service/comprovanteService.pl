@@ -4,7 +4,7 @@
     getComprovByCpf/3
 ]).
 
-:- use_module('../Util/comprovanteManager.pl', [addComprovante/3, getAllComprovantes/1, getComprovanteByCpf/3]).
+:- use_module('../Util/comprovanteManager.pl', [addComprovante/3, getAllComprovantes/1, getComprovanteByCpf/3, comprovanteToJson/4, comprovantesToJson/2 ]).
 
 createComprovante(FileName, Cpf, Data):-
 addComprovante(FileName, Cpf, Data),

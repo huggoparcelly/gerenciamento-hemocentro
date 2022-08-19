@@ -6,7 +6,13 @@
     getDoacaoRecursivamente/3,
     doacaoToJson/6,
     doacoesToJson/2,
-    addDoacao/5
+    addDoacao/5,
+    addDoacaoMedula/3,
+    doacaoMedulaToJson/4,
+    doacoesMedulaToJson/2,
+    getDoacaoMedulaById/1,
+    getAllDoacoesMedulaAux/1,
+    getAllDoacoesMedula/1
     ]).
 :- use_module(jsonManager).
 :- encoding(utf8).
@@ -66,3 +72,44 @@ addDoacao(FileName, Cpf, TipoSangue, Quantidade, Data) :-
   open(FilePath, write, Stream), 
   write(Stream, Saida), 
   close(Stream).
+
+%AddDoacaoMedula
+addDoacaoMedula(FileName, Cpf, Data) :- 
+  id(Id), incrementa_id,
+  readJson(FileName, File),
+  doacoesMedulaToJson(File, ListaDoacoesJSON),
+  doacaoMedulaToJson(Id, Cpf, Data, DoacaoJSON),
+  append(ListaDoacoesJSON, [DoacaoJSON], Saida),
+  getFilePath(FileName, FilePath),
+  open(FilePath, write, Stream), 
+  write(Stream, Saida), 
+  close(Stream).  
+
+
+doacaoMedulaToJson(Id, Cpf, Data, Saida) :-
+  swritef(Saida, '{"id":%w, "cpf":"%w", "data":"%w"}', 
+  [Id, Cpf, Data]).  
+
+doacoesMedulaToJson([], []).
+doacoesMedulaToJson([H|T], [X|Saida]) :- 
+  doacaoMedulaToJson(H.id, H.cpf, H.data, X), 
+  doacoesMedulaToJson(T, Saida).  
+
+getDoacaoMedulaById(Id) :-
+  getDoacaoById("doacoesMedula", Id, Result),
+  write("aqui"),
+  write(Result).  
+
+%GetAllDoacoes
+getAllDoacoesMedulaAux([]).
+getAllDoacoesMedulaAux([H|T]):-
+  write("id: "), write(H.id), nl,
+  write("cpf: "), write(H.cpf), nl,
+  write("data: "), write(H.data), nl,
+  writeln('------------------'),
+  getAllDoacoesMedulaAux(T).
+
+
+getAllDoacoesMedula(FileName):-
+  readJson(FileName, File),
+  getAllDoacoesMedulaAux(File).
