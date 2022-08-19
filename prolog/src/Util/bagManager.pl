@@ -74,3 +74,4 @@ retiraSangue(TipoSangue, QtdNumber) :-
     write("Bolsas contendo "), write(QtdNumber), writeln(' litro(s) de sangue foram entregues!'));
     writeln('Não temos estoque para a quantidade desejada.').
     
+    ehTipoValido(TipoSangue) :- checaExistenciaBag(TipoSangue).
