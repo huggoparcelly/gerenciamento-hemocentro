@@ -4,6 +4,7 @@
 :- use_module('Service/bolsaService', [getBolsas/0, getBolsaByTipo/2]).
 :- use_module('Service/comprovanteService', [getAllComprov/1, getComprovByCpf/2]).
 :- use_module('Util/input.pl', [input/1]).
+:- use_module('Service/recepcaoService', [createReception/0]).
 %inserir restante dos services
 :- encoding(utf8).
 
@@ -23,7 +24,7 @@ subMenu :-
     writeln('\t[ 6 ] SAIR'),
     writeln('> Opção: '),
     input(Input),
-    clear,
+    %clear,
     menuInput(Input).
 
 menuInput('1') :-
@@ -106,7 +107,7 @@ menuCadastro('2'):- addUser('receptores'), subMenu.
 menuCadastro('3'):- createDonation, subMenu.
 menuCadastro('4'):- createDirectDonation, subMenu.
 % %menuCadastro('5'):- 
-% %menuCadastro('6'):- 
+menuCadastro('6'):- createReception, subMenu.
 menuCadastro('7'):- subMenu.
 menuCadastro(_) :- opcaoInvalida, menuInput('1').
 
