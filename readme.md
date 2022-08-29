@@ -3,7 +3,7 @@
 </h1> 
 
 <h4 align="center"> 
-	🚧  Hemocentro 💉🩸  Em construção...  🚧
+	🚧  Hemocentro 💉🩸  Finalizado. 🚧
 </h4>
 <p align="center">
  <a href="#descrição">Descrição</a> •
@@ -13,11 +13,15 @@
  <a href="#autores">Autores</a>
 </p>
 
+---
+
 ## Descrição 📋
 Programa que simula um sistema para o gerenciamento de um hemocentro, no qual pode-se cadastrar, editar, listar e excluir doadores e receptores, verificar qual o tipo de sangue tem mais carência de doação, é possível consultar os registros de doações por cpf, emitir comprovantes de doação, fazer levantamento de dados para realizar campanhas de doação direcionada a determinado tipo sanguíneo, realizar uma doação direcionada para um receptor e o gerenciamento para doação de medula óssea.
 
 ## Tecnologias 🛠
 [![Haskell](https://img.shields.io/badge/Haskell-5e5183?style=for-the-badge&logo=haskell&logoColor=white)](https://www.haskell.org/)
+[![Prolog](https://img.shields.io/badge/Prolog-ef9439?style=for-the-badge&logo=prolog&logoColor=white)](https://www.haskell.org/)
+[![Json](https://img.shields.io/badge/json-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink)](https://www.haskell.org/)
 
 ## Especificações 📄
 [Documento](https://docs.google.com/document/d/13QJxyVWj3aLhTTgFNJPp8ZkLqqU5z0Hty5SqhFRYS_4/edit) que contém as especificações do projeto.
@@ -26,7 +30,7 @@ Programa que simula um sistema para o gerenciamento de um hemocentro, no qual po
 ### - Pré-requisitos
 Você precisa ter instalado em sua máquina o [Git](https://git-scm.com).
 
-
+## > **Haskell**
 ### - Instalando o Hashell ⚙
 Para rodar o projeto, você precisa instalar o [GHCup](https://www.haskell.org/ghcup/):
 ```bash
@@ -34,8 +38,7 @@ Para rodar o projeto, você precisa instalar o [GHCup](https://www.haskell.org/g
 $ curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 ```
 
-
-### - Rodando o projeto 🪄
+### - Rodando o projeto - Haskell 🪄
 ```bash
 # Clone este repositório
 $ git clone git@github.com:huggoparcelly/gerenciamento-hemocentro.git
@@ -44,7 +47,31 @@ $ git clone git@github.com:huggoparcelly/gerenciamento-hemocentro.git
 $ cd gerenciamento-hemocentro
 
 # Rode o projeto
-$ runhaskell Main.hs
+$ runhaskell haskell/Main.hs
+```
+
+---
+
+## > **Prolog**
+### - Instalando o Swi Prolog ⚙
+Para rodar o projeto, você precisa instalar o [SWI Prolog](https://www.swi-prolog.org/):
+```bash
+# instalando o SWI Prolog
+$ sudo apt-add-repository ppa:swi-prolog/stable
+$ sudo apt-get update
+$ sudo apt-get install swi-prolog
+```
+
+### - Rodando o projeto - Prolog 🪄
+```bash
+# Clone este repositório
+$ git clone git@github.com:huggoparcelly/gerenciamento-hemocentro.git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd gerenciamento-hemocentro
+
+# Rode o projeto
+$ prolog prolog/src/main.pl
 ```
 
 
